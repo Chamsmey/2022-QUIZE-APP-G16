@@ -1,0 +1,202 @@
+
+
+*{
+    padding: 0;margin: 0;
+    font-family: sans-serif;
+}
+body{
+    background: #ddd;
+}
+/* Navbar-------------------------------- */
+header{
+    background: #18B9E8;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+header .logo-image{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+header .logo-image #logo{
+    width: 20%;
+    padding: 3px;
+}
+.logo-image span{
+    margin-left: 10px;
+    font-weight: 700;
+}
+.form {
+    width: 100%;
+    margin-top: 20px;
+}
+header .menu{
+    width: 20%;
+    background: #18B9E8;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.quiz-btn ,.create-btn{
+    background: #fff;
+    padding: 5%;
+    border-radius: 50px;
+    cursor: pointer;
+}
+/* container--------- */
+.container {
+    width: 60%;
+    margin: auto;
+}
+/* background  */
+.banner {
+    width: 100%;
+    height: 450px;
+    margin: auto;
+    margin-top: 30px;
+    background-image: url(../images/feature.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.banner span {
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    margin-top: 20px;
+}
+.new-create-btn {
+    width: 25%;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    background-color: orange;
+    cursor: pointer;
+}
+.new-create-btn:hover {
+    box-shadow: 2px 2px 5px rgb(102, 102, 102);
+    margin-right: 2px;
+    margin-bottom: 32px;
+}
+
+/* question form ---------------------- */
+.header-form {
+    border-radius: 10px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 2px 2px 5px #ddd;
+}
+h2 {
+    border-radius: 10px 10px 0 0;
+    color: #fff;
+    background: #FF9900;
+    padding: 20px;
+}
+#title {
+    width: 50%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    
+    padding: 10px;
+    outline: none;
+    border: none;
+    background: #fff;
+    border-bottom: 1px solid black;
+}
+.label-answer{
+    display: flex;
+    justify-content: space-between;
+}
+.label-answer #score{
+    width: 30px;
+}
+#body-form {
+    margin-top: 20px;
+    width: 100%;
+    background: #ffff;
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 8px solid #18B9E8;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px #ddd;
+}
+#question-input {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    padding: 8px;
+    margin: 10px 0;
+    border-bottom: 1px solid black;
+}
+
+input[name="inputAnswer"] {
+    border: none;
+    outline: none;
+
+    width: 95%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 8px 0;
+    margin-left: 15px;
+    border-bottom: 1px solid black;
+}
+.footer-form {
+    margin-top: 10px;
+    width: 100%;
+    text-align: right;
+}
+#add {
+    border: none;
+    padding: 8px 30px;
+    border-radius: 8px;
+    background: #FF9900;
+    color: #fff;
+}
+/* ------------------------------------ */
+
+/* edit question  */
+ul{
+    width: 100%;
+}
+li{
+    border-radius: 5px solid;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content:space-between;
+    background: #ffff;
+    box-shadow: 0px 0px 2px 1px #ddd;
+}
+.btns{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+ul {
+    width: 100%;
+}
+
+.contant-qus {
+    width: 70%;
+}
+
+.score {
+    width: 20%;
+}
+
+.editer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 10%;
+}
