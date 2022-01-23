@@ -1,55 +1,190 @@
-// function dispay(array){
-
-//     form.style.dispay ="none";
-//     console.log(form);
-
-// }
-
-// let form = document.querySelector(".form");
-// console.log("Hello the best Group 16");
-// const createBtn = document.querySelector(".create-btn");
-// console.log(createBtn);
-// createBtn.addEventListener("click",dispay);
-var getQuestion = document.querySelector("#question-input");
-var getScore = document.querySelector("#score");
-
-var getAnswer = document.querySelectorAll(".answer");
-var btnAdd = document.querySelector("#add");
-var ul = document.querySelector("ul");
 
 
-let showAnswer = (event) => {
+
+
+//CREATE HEADER
+let header = document.createElement('header');
+document.body.appendChild(header);
+
+//CREATE DIV CLASS logo-image
+let logoImage = document.createElement('div');
+logoImage.className = 'logo-image';
+header.appendChild(logoImage);
+
+//CREATE IMG ID logo 
+let img = document.createElement('img');
+img.setAttribute('src','images/logo.png');
+img.id = 'logo';
+logoImage.appendChild(img);
+
+//CREATE SPAN 
+let nameGroup = document.createElement('span');
+nameGroup.textContent = 'QUIZ-APP-G16';
+logoImage.appendChild(nameGroup);
+
+//CREATE DIV CLASS menu
+let menu = document.createElement('div');
+menu.className = 'menu';
+header.appendChild(menu);
+
+//CREATE DIV CLASS create-btn
+let btnCreateQuiz = document.createElement('div');
+btnCreateQuiz.className = 'create-btn';
+btnCreateQuiz.textContent = 'Create Question';
+menu.appendChild(btnCreateQuiz);
+
+//CREATE DIV CLASS quiz-btn
+let btnQuiz = document.createElement('div');
+btnQuiz.className = 'quiz-btn';
+btnQuiz.textContent = 'Quiz'
+menu.appendChild(btnQuiz);
+
+
+let ShowQuestions = (event) => {
     event.preventDefault();
-
-
+    let dataQus = {};
+    // key question ---------------
+    dataQus.question =getQuestion.value;
+    
+    dataQus.score = getScore.value;
+    // key answers iin data question -----------
+    let answers =[];
     for (let answer of getAnswer) {
         if (answer.checked) {
-            console.log(answer.nextElementSibling.value);
+            dataQus.correct = answer.nextElementSibling.value;
         }
+        answers.push(answer.nextElementSibling.value);
     };
-    let li = document.createElement("li");
-    let question = document.createElement("span");
-    question.className = "contant-qus";
-    question.textContent = getQuestion.value;
+    dataQus.answers=answers;
+    
+    // add data to main data 
+    datas.push(dataQus);
 
-    let score = document.createElement("span");
-    score.className = "score";
-    score.textContent = "score :" + getScore.value;
-    let editer = document.createElement("span");
-    editer.className = "editer";
-    let i = document.createElement("i");
-    i.className = "fa fa-edit";
-    let deletes = document.createElement("i");
-    deletes.className = "fa fa-trash";
-
-
-    editer.appendChild(i);
-    editer.appendChild(deletes);
-    li.appendChild(question);
-    li.appendChild(score);
-    li.appendChild(editer);
-    ul.appendChild(li);
-
-
+    console.log(datas);
 }
-btnAdd.addEventListener("click", showAnswer);
+
+
+
+// 2create div for container class name "container" ------append to body
+
+let container = document.createElement('div');
+container.className = 'container';
+document.body.appendChild(container);
+
+// 3 create div for form class name "form" append to container 
+let forms = document.createElement('div');
+forms.className = 'form';
+container.appendChild(forms);
+
+// 4 create div for header form class name is "header-form" appen into form 
+let header_form = document.createElement('div');
+header_form.className = 'header-form';
+forms.appendChild(header_form);
+
+// 5 create h2 for quiz title class name is "title"
+let title = document.createElement('h2');
+title.className = 'title';
+title.textContent = 'Quiz Title';
+header_form.appendChild(title);
+
+// 6 create input id name "title" appen to header form
+let inputTitle = document.createElement('input');
+inputTitle.type = 'text';
+inputTitle.id = 'title';
+inputTitle.placeholder = 'Title of your quiz...';
+header_form.appendChild(inputTitle);
+
+// 7 create body form class name is "body-form" appen to forms
+let bodyForm = document.createElement('form');
+bodyForm.id = 'body-form';
+forms.appendChild(bodyForm);
+
+// 8 create label question -title ------------------- append into bodyFrom
+let questLabel= document.createElement('label');
+questLabel.textContent = 'Question';
+bodyForm.appendChild(questLabel);
+// 9 create input question id name is "question-input" append into bodyForm 
+let inputQuestion = document.createElement('input');
+inputQuestion.type = 'text';
+inputQuestion.name = 'question';
+inputQuestion.id = 'question-input';
+inputQuestion.placeholder = 'Question';
+bodyForm.appendChild(inputQuestion);
+// 10 create div for containing possible answers class name is "choose-answer" append bodform 
+let answers = document.createElement('div');
+answers.className = 'choose-answer';
+bodyForm.appendChild(answers);
+// 11 create Label answer class name is "label-answer" append answers
+let answerLabel = document.createElement('label');
+answerLabel.textContent = 'Answer:';
+answerLabel.className = "label-answer";
+answers.appendChild(answerLabel);
+// 12 create span to define to input score 
+let asignScore= document.createElement("span");
+answerLabel.appendChild(asignScore);
+let labelScore = document.createElement("span");
+labelScore.textContent = "Asign score :";
+// 13 create input for assign score id name is "score" 
+let inputScore = document.createElement("input");
+inputScore.setAttribute("id","score");
+inputScore.setAttribute("value","0");
+inputScore.setAttribute("type","number");
+asignScore.appendChild(labelScore);
+asignScore.appendChild(inputScore);
+// 14 create input for assign answer class name is "choice" append to answers
+for (let i=0; i<4; i++) {
+    let choice = document.createElement('label');
+    choice.className = 'choice';
+    answers.appendChild(choice);
+    // 15 create radio , check answer -
+    let radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'answer';
+    radio.className = "answer";
+    choice.appendChild(radio);
+    
+    let inputAnswer = document.createElement('input');
+    inputAnswer.type = 'text';
+    inputAnswer.name = 'inputAnswer';
+    inputAnswer.placeholder = 'Answer' + (i+1);
+    choice.appendChild(inputAnswer);
+    
+}    
+let addQuestion = document.createElement('div');
+addQuestion.className = 'footer-form';
+bodyForm.appendChild(addQuestion);
+// create button for adding question
+let btnAddQuest = document.createElement('button');
+btnAddQuest.id = 'add';
+btnAddQuest.textContent = 'Add question';
+addQuestion.appendChild(btnAddQuest);
+let btn = document.querySelector('#add');
+// add eventlistener to btn create question
+btn.addEventListener("click", ShowQuestions);
+let Completed =document.createElement("ul");
+container.appendChild(Completed);
+
+//create div for add question contain add button  
+
+
+// menu ------------------------------
+function display(){
+    createBtn.style.background = "#FF9900";
+    createBtn.style.color = "#ffff";
+    console.log(container);
+    forms.style.display ="block";
+}    
+forms.style.display ="none";
+let datas =[];
+let banner = document.querySelector(".banner");
+forms.style.display ="none";
+
+console.log("Hello the best Group 16");
+let createBtn = document.querySelector(".create-btn");
+createBtn.addEventListener("click",display);
+
+let getQuestion = document.querySelector("#question-input");
+let getScore = document.querySelector("#score");
+
+let getAnswer = document.querySelectorAll(".answer");
+let btnAdd = document.querySelector("#add");
