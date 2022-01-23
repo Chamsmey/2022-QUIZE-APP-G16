@@ -1,38 +1,55 @@
+// function dispay(array){
 
-//CREATE HEADER
-let header = document.createElement('header');
-document.body.appendChild(header);
+//     form.style.dispay ="none";
+//     console.log(form);
 
-//CREATE DIV CLASS logo-image
-let logoImage = document.createElement('div');
-logoImage.className = 'logo-image';
-header.appendChild(logoImage);
+// }
 
-//CREATE IMG ID logo 
-let img = document.createElement('img');
-img.setAttribute('src','images/logo.png');
-img.id = 'logo';
-logoImage.appendChild(img);
+// let form = document.querySelector(".form");
+// console.log("Hello the best Group 16");
+// const createBtn = document.querySelector(".create-btn");
+// console.log(createBtn);
+// createBtn.addEventListener("click",dispay);
+var getQuestion = document.querySelector("#question-input");
+var getScore = document.querySelector("#score");
 
-//CREATE SPAN 
-let nameGroup = document.createElement('span');
-nameGroup.textContent = 'QUIZ-APP-G16';
-logoImage.appendChild(nameGroup);
+var getAnswer = document.querySelectorAll(".answer");
+var btnAdd = document.querySelector("#add");
+var ul = document.querySelector("ul");
 
-//CREATE DIV CLASS menu
-let menu = document.createElement('div');
-menu.className = 'menu';
-header.appendChild(menu);
 
-//CREATE DIV CLASS create-btn
-let btnCreateQuiz = document.createElement('div');
-btnCreateQuiz.className = 'create-btn';
-btnCreateQuiz.textContent = 'Create Question';
-menu.appendChild(btnCreateQuiz);
+let showAnswer = (event) => {
+    event.preventDefault();
 
-//CREATE DIV CLASS quiz-btn
-let btnQuiz = document.createElement('div');
-btnQuiz.className = 'quiz-btn';
-btnQuiz.textContent = 'Quiz'
-menu.appendChild(btnQuiz);
 
+    for (let answer of getAnswer) {
+        if (answer.checked) {
+            console.log(answer.nextElementSibling.value);
+        }
+    };
+    let li = document.createElement("li");
+    let question = document.createElement("span");
+    question.className = "contant-qus";
+    question.textContent = getQuestion.value;
+
+    let score = document.createElement("span");
+    score.className = "score";
+    score.textContent = "score :" + getScore.value;
+    let editer = document.createElement("span");
+    editer.className = "editer";
+    let i = document.createElement("i");
+    i.className = "fa fa-edit";
+    let deletes = document.createElement("i");
+    deletes.className = "fa fa-trash";
+
+
+    editer.appendChild(i);
+    editer.appendChild(deletes);
+    li.appendChild(question);
+    li.appendChild(score);
+    li.appendChild(editer);
+    ul.appendChild(li);
+
+
+}
+btnAdd.addEventListener("click", showAnswer);
