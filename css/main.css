@@ -239,6 +239,7 @@ li {
 ul {
     width: 60%;
     margin: auto;
+    margin-bottom: 20px;
 }
 
 .contant-qus {
@@ -261,34 +262,40 @@ h3 {
 
 }
 
-/* display quiz */
+
 /* display quiz */
 .display-quiz {
     width: 100%;
     margin: auto;
 }
-.top-side {
+.dis-quiz-title {
     margin: auto;
     width: 100%;
-    height: 230px;
+    height: 50px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    /* border-bottom: solid 1px white; */
+}
+.dis-quiz-title span {
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+}
+.question-block {
+    margin: auto;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
     align-items: center;
     background-color: orange;
 }
-.dis-quiz-title {
-    font-size: 30px;
-    font-weight: bolder;
-    color: white;
-    padding: 0 20px 0 20px;
-    border-bottom: solid 2px white;
-    margin-top: 20px;
-}
-.top-side #dis-question {
+.question-block #dis-question {
     font-weight: bolder;
     color: white;
     font-size: 27px;
-    margin-top: 65px;
 }
 .bottom-side {
     margin: auto;
@@ -326,6 +333,4 @@ h3 {
 }
 .quiz-btn-next:hover {
     box-shadow: 2px 2px 5px rgb(102, 102, 102);
-    margin-right: 2px;
-    margin-bottom: 32px;
 }

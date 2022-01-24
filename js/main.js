@@ -250,20 +250,24 @@ function displayQuiz(object) {
     var toQuizContainer = document.createElement("section");
     toQuizContainer.className = "display-quiz";
     container.appendChild(toQuizContainer);
+
     // top side
-    let questionSide = document.createElement("div");
-    questionSide.className = "top-side";
-    toQuizContainer.appendChild(questionSide);
     // title block
-    let quizTitle = document.createElement("span");
+    let quizTitle = document.createElement("div");
     quizTitle.className = "dis-quiz-title";
-    quizTitle.textContent = document.getElementById("title").value;
-    questionSide.appendChild(quizTitle);
+    toQuizContainer.appendChild(quizTitle);
+    let title = document.createElement("span")
+    title.textContent = document.getElementById("title").value;
+    quizTitle.appendChild(title)
     // question block
+    let questionSide = document.createElement("div");
+    questionSide.className = "question-block";
+    toQuizContainer.appendChild(questionSide);
     let disQuestion = document.createElement("span");
     disQuestion.textContent = object.question;
     disQuestion.id = "dis-question";
     questionSide.appendChild(disQuestion);
+
     //bottom side / answers side
     let answerSide = document.createElement("div");
     answerSide.className = "bottom-side";
@@ -277,7 +281,9 @@ function displayQuiz(object) {
         answerSide.appendChild(disAnswerContain)
         disAnswerID += 1
      }
-    //button
+
+    //button side
+    //btn next
     let quizBtnContainer = document.createElement("div");
     quizBtnContainer.className = "quiz-btn-container";
     container.appendChild(quizBtnContainer)
@@ -286,7 +292,6 @@ function displayQuiz(object) {
     quizButtonNext.textContent = "NEXT";
     quizButtonNext.addEventListener("click", nextQuestion)
     quizBtnContainer.appendChild(quizButtonNext);
-    //--increase question number---
 }
 
 
