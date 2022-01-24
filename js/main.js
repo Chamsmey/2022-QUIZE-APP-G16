@@ -35,6 +35,7 @@ menu.appendChild(btnCreateQuiz);
 let btnQuiz = document.createElement('div');
 btnQuiz.className = 'quiz-btn';
 btnQuiz.textContent = 'Quiz'
+btnQuiz.addEventListener("click", hideOther)
 menu.appendChild(btnQuiz);
 
 
@@ -220,6 +221,109 @@ containQuest.appendChild(allQuestion);
 
 let Completed =document.createElement("ul");
 containQuest.appendChild(Completed);
+
+
+//--Display quiz--
+// hide other element
+var questionNumber = 0;
+var disAnswerID = 0;
+let totalScore = 0;
+function hideOther() {
+    if (datas.length > 0) {
+        forms.style.display = "none";
+        header.style.display = "none";
+        containQuest.style.display = "none";
+        allQuestion.style.display = "none";
+        questionNumber = 0
+        disAnswerID = 0;
+        totalScore = 0;
+        displayQuiz(datas[0])
+    } else {
+        window.alert("No quiz to play!")
+    }
+}
+
+// display quiz 
+let isAnswerChose = false
+function displayQuiz(object) {
+    isAnswerChose = false
+    var toQuizContainer = document.createElement("section");
+    toQuizContainer.className = "display-quiz";
+    container.appendChild(toQuizContainer);
+    // top side
+    let questionSide = document.createElement("div");
+    questionSide.className = "top-side";
+    toQuizContainer.appendChild(questionSide);
+    let disQuestion = document.createElement("span");
+    disQuestion.textContent = object.question;
+    disQuestion.id = "dis-question";
+    questionSide.appendChild(disQuestion);
+    //bottom side / answers side
+    let answerSide = document.createElement("div");
+    answerSide.className = "bottom-side";
+    toQuizContainer.appendChild(answerSide);
+    for (let answer of object.answers) {
+        let disAnswerContain = document.createElement("p");
+        disAnswerContain.className = "answers";
+        disAnswerContain.id = disAnswerID
+        disAnswerContain.textContent = answer;
+        disAnswerContain.addEventListener("click", choseAns)
+        answerSide.appendChild(disAnswerContain)
+        disAnswerID += 1
+     }
+    //button
+    let quizBtnContainer = document.createElement("div");
+    quizBtnContainer.className = "quiz-btn-container";
+    container.appendChild(quizBtnContainer)
+    let quizButtonNext = document.createElement("button");
+    quizButtonNext.className = "quiz-btn-next";
+    quizButtonNext.textContent = "NEXT";
+    quizButtonNext.addEventListener("click", nextQuestion)
+    quizBtnContainer.appendChild(quizButtonNext);
+    //--increase question number---
+}
+
+
+//-- choose answer style--
+let selectedAnswer = 0
+function choseAns(event) {
+    isAnswerChose = true
+    let getAllAnswers = document.getElementsByClassName("answers")
+    let changeTarget = event.target;
+    let getAnswerId = changeTarget.id;
+    selectedAnswer = getAnswerId
+    for (let item of getAllAnswers) {
+        item.style.border = "none";
+        if (item.id == getAnswerId) {
+            item.style.border = "solid 2px orange"
+        }
+    }
+}
+
+// next question
+function nextQuestion() {
+    if (isAnswerChose) {
+        if (selectedAnswer == datas[questionNumber].correct) {
+            totalScore += parseInt(datas[questionNumber].score);
+        }
+        console.log(totalScore);
+        disAnswerID = 0;
+        questionNumber += 1
+        let previousQuestion = document.getElementsByClassName("display-quiz");
+        for (let item of previousQuestion) {
+            item.style.display = "none"
+        }
+        let previousBtn = document.getElementsByClassName("quiz-btn-container")
+        for (let item of previousBtn) {
+            item.style.display = "none"
+        }
+        if (questionNumber < datas.length) {
+            displayQuiz(datas[questionNumber])
+        }
+    } else {
+        window.alert("Please choose the answer!")
+    }
+}
 
 
 
