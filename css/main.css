@@ -133,7 +133,10 @@ h2 {
     outline: none;
     border: none;
     background: #fff;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+#title:focus {
+    border-bottom: 1px solid orange;
 }
 
 .define {
@@ -151,6 +154,7 @@ h2 {
 }
 .label-answer #score{
     width: 30px;
+    outline: none;
 }
 
 #body-form {
@@ -171,7 +175,10 @@ h2 {
     border: none;
     padding: 8px;
     margin: 10px 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+#question-input:focus {
+    border-bottom: 1px solid orange;
 }
 
 input[name="inputAnswer"] {
@@ -182,7 +189,10 @@ input[name="inputAnswer"] {
     padding: 8px;
     margin: 8px 0;
     margin-left: 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+input[name="inputAnswer"]:focus {
+    border-bottom: 1px solid orange;
 }
 
 .footer-form {
@@ -262,14 +272,23 @@ h3 {
     width: 100%;
     height: 230px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     background-color: orange;
 }
-.top-side span {
+.dis-quiz-title {
+    font-size: 30px;
+    font-weight: bolder;
+    color: white;
+    padding: 0 20px 0 20px;
+    border-bottom: solid 2px white;
+    margin-top: 20px;
+}
+.top-side #dis-question {
     font-weight: bolder;
     color: white;
     font-size: 27px;
+    margin-top: 65px;
 }
 .bottom-side {
     margin: auto;
