@@ -38,22 +38,53 @@ btnQuiz.textContent = 'Quiz'
 menu.appendChild(btnQuiz);
 
 
-let ShowQuestions = (event) => {
+
+function ShowQuestions(event) {
     event.preventDefault();
     let dataQus = {};
+
+    let li = document.createElement("li");
+    let question = document.createElement("span");
+    question.className = "contant-qus";
+    question.textContent = getQuestion.value;
+
     // key question ---------------
     dataQus.question =getQuestion.value;
     
+    let score = document.createElement("span");
+    score.className = "score";
+    score.textContent = "score :" + getScore.value;
     dataQus.score = getScore.value;
+    
     // key answers iin data question -----------
     let answers =[];
+    let indexOfanswer = 0;
     for (let answer of getAnswer) {
         if (answer.checked) {
-            dataQus.correct = answer.nextElementSibling.value;
+            dataQus.correct = indexOfanswer;   
         }
         answers.push(answer.nextElementSibling.value);
+        indexOfanswer += 1;
+        
     };
     dataQus.answers=answers;
+    
+    // create btn to edit and delete
+    let editer = document.createElement("span");
+    editer.className = "editer";
+    let i = document.createElement("i");
+    i.className = "fa fa-edit edit";
+    let deletes = document.createElement("i");
+    deletes.className = "fa fa-trash delete";
+
+    editer.appendChild(i);
+    editer.appendChild(deletes);
+    li.appendChild(question);
+    li.appendChild(score);
+    li.appendChild(editer);
+    let qusCompleted = document.querySelector("ul");
+    qusCompleted.appendChild(li);
+    
     
     // add data to main data 
     datas.push(dataQus);
@@ -159,10 +190,21 @@ addQuestion.appendChild(btnAddQuest);
 let btn = document.querySelector('#add');
 // add eventlistener to btn create question
 btn.addEventListener("click", ShowQuestions);
-let Completed =document.createElement("ul");
-container.appendChild(Completed);
 
 //create div for add question contain add button  
+
+// create div to contain all question
+let containQuest = document.createElement('div');
+containQuest.className = 'contain-quest';
+container.appendChild(containQuest);
+
+let allQuestion = document.createElement('h3');
+allQuestion.textContent = 'All Questions';
+containQuest.appendChild(allQuestion);
+
+let Completed =document.createElement("ul");
+containQuest.appendChild(Completed);
+
 
 
 // menu ------------------------------
@@ -171,11 +213,14 @@ function display(){
     createBtn.style.color = "#ffff";
     console.log(container);
     forms.style.display ="block";
+    containQuest.style.display = 'block'
+
 }    
 forms.style.display ="none";
 let datas =[];
 let banner = document.querySelector(".banner");
 forms.style.display ="none";
+containQuest.style.display ="none";
 
 console.log("Hello the best Group 16");
 let createBtn = document.querySelector(".create-btn");
@@ -186,3 +231,6 @@ let getScore = document.querySelector("#score");
 
 let getAnswer = document.querySelectorAll(".answer");
 let btnAdd = document.querySelector("#add");
+
+
+
