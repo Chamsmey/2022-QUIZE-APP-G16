@@ -28,7 +28,7 @@ header.appendChild(menu);
 //CREATE DIV CLASS create-btn
 let btnCreateQuiz = document.createElement('div');
 btnCreateQuiz.className = 'create-btn';
-btnCreateQuiz.textContent = 'Create Question';
+btnCreateQuiz.textContent = 'Create Quiz';
 menu.appendChild(btnCreateQuiz);
 
 //CREATE DIV CLASS quiz-btn
@@ -234,7 +234,6 @@ function display(){
     containQuest.style.display = 'block'
 
 }    
-forms.style.display ="none";
 let datas =[];
 let banners = document.querySelector(".banner");
 forms.style.display ="none";
@@ -243,6 +242,9 @@ containQuest.style.display ="none";
 console.log("Hello the best Group 16");
 let createBtn = document.querySelector(".create-btn");
 createBtn.addEventListener("click",display);
+
+let btnCreateQuest = document.querySelector('.btn-create-newQues');
+btnCreateQuest.addEventListener('click', display);
 
 let getQuestion = document.querySelector("#question-input");
 let getScore = document.querySelector("#score");
