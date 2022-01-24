@@ -1,7 +1,5 @@
 
 
-
-
 //CREATE HEADER
 let header = document.createElement('header');
 document.body.appendChild(header);

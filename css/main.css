@@ -4,6 +4,9 @@
     font-family: sans-serif;
 }
 
+body{
+    background: #ddd;
+}
 
 /* Navbar-------------------------------- */
 
@@ -48,8 +51,9 @@ header .menu {
 .quiz-btn,
 .create-btn {
     background: #fff;
-    padding: 10px 20px 10px 20px;
+    padding: 5%;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 
@@ -138,13 +142,21 @@ h2 {
     width: 30px;
 }
 
+.label-answer{
+    display: flex;
+    justify-content: space-between;
+}
+.label-answer #score{
+    width: 30px;
+}
+
 #body-form {
     margin-top: 20px;
     width: 100%;
     background: #ffff;
     padding: 20px;
     box-sizing: border-box;
-    border-top: 8px solid #18B9E8;
+    border-left: 8px solid #18B9E8;
     border-radius: 10px;
     box-shadow: 2px 2px 5px #ddd;
 }
@@ -195,10 +207,13 @@ ul {
 }
 
 li {
+    border-radius: 5px solid;
     padding: 10px 20px;
     margin-top: 10px;
+    cursor: pointer;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
+    background: #ffff;
     box-shadow: 0px 0px 2px 1px #ddd;
 }
 
@@ -213,13 +228,21 @@ ul {
 }
 
 .contant-qus {
-    width: 50%;
+    width: 70%;
 }
 
 .score {
-    width: 40%;
+    width: 20%;
 }
 
 .editer {
     width: 10%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 20px;
+
 }
