@@ -38,59 +38,89 @@ btnQuiz.textContent = 'Quiz'
 btnQuiz.addEventListener("click", hideOther)
 menu.appendChild(btnQuiz);
 
+// CREATE FUNCTION TO CHECK ALL ANSWERS ARE HAVE BEEN INPUT OR NOT
+function validAnswer() {
+    let ansers = document.getElementsByName('inputAnswer');
+    for (let value of ansers) {
+        if (value.value === '') {
+            return false;
+        };
+    }
+    return true;
+}
 
+// CREATE FUNCTION TO CHECK THE CORRECT ANSWER IS CHECK OR NOT
+function validRadio() {
+    let checkRadio = document.getElementsByClassName('answer')
+    for (let value of checkRadio) {
+        if (value.checked) {
+            return true;
+        }
+    }
+    return false;
+}
 
+// CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
-    let dataQus = {};
 
-    let li = document.createElement("li");
-    let question = document.createElement("span");
-    question.className = "contant-qus";
-    question.textContent = getQuestion.value;
+    // CHECK IF ALL INPUT IS VALID
+    if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
 
-    // key question ---------------
-    dataQus.question =getQuestion.value;
+        // CREATE DICTIONARY TO STORE QUESTION AND ANSWER
+        let dataQus = {};
     
-    let score = document.createElement("span");
-    score.className = "score";
-    score.textContent = "score :" + getScore.value;
-    dataQus.score = getScore.value;
+        // CREATE LI TO STORE QUESTION
+        let li = document.createElement("li");
+        let question = document.createElement("span");
+        question.className = "contant-qus";
+        question.textContent = getQuestion.value;
     
-    // key answers iin data question -----------
-    let answers =[];
-    let indexOfanswer = 0;
-    for (let answer of getAnswer) {
-        if (answer.checked) {
-            dataQus.correct = indexOfanswer;   
-        }
-        answers.push(answer.nextElementSibling.value);
-        indexOfanswer += 1;
+        // key question ---------------
+        dataQus.question =getQuestion.value;
         
-    };
-    dataQus.answers=answers;
+        let score = document.createElement("span");
+        score.className = "score";
+        score.textContent = "score :" + getScore.value;
+        dataQus.score = getScore.value;
+        
+        // key answers iin data question -----------
+        let answers =[];
+        let indexOfanswer = 0;
+        for (let answer of getAnswer) {
+            if (answer.checked) {
+                dataQus.correct = indexOfanswer;   
+            }
+            answers.push(answer.nextElementSibling.value);
+            indexOfanswer += 1;
+            
+        };
+        dataQus.answers=answers;
+        
+        // create btn to edit and delete
+        let editer = document.createElement("span");
+        editer.className = "editer";
+        let i = document.createElement("i");
+        i.className = "fa fa-edit edit";
+        let deletes = document.createElement("i");
+        deletes.className = "fa fa-trash delete";
     
-    // create btn to edit and delete
-    let editer = document.createElement("span");
-    editer.className = "editer";
-    let i = document.createElement("i");
-    i.className = "fa fa-edit edit";
-    let deletes = document.createElement("i");
-    deletes.className = "fa fa-trash delete";
-
-    editer.appendChild(i);
-    editer.appendChild(deletes);
-    li.appendChild(question);
-    li.appendChild(score);
-    li.appendChild(editer);
-    let qusCompleted = document.querySelector("ul");
-    qusCompleted.appendChild(li);
+        editer.appendChild(i);
+        editer.appendChild(deletes);
+        li.appendChild(question);
+        li.appendChild(score);
+        li.appendChild(editer);
+        let qusCompleted = document.querySelector("ul");
+        qusCompleted.appendChild(li);
+        
+        
+        // add data to main data 
+        datas.push(dataQus);
     
-    
-    // add data to main data 
-    datas.push(dataQus);
-
-    console.log(datas);
+        console.log(datas);
+    }else {
+        window.confirm('You have to fill all datas')
+    }
 }
 
 
@@ -361,6 +391,7 @@ let getScore = document.querySelector("#score");
 
 let getAnswer = document.querySelectorAll(".answer");
 let btnAdd = document.querySelector("#add");
+let topic = document.querySelector('#title');
 
 
 
