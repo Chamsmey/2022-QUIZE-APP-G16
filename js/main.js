@@ -99,6 +99,22 @@ function ShowQuestions(event) {
 let container = document.createElement('div');
 container.className = 'container';
 document.body.appendChild(container);
+//create div for banner class name is "banner" append to container
+let banner = document.createElement("div");
+banner.className = "banner";
+container.appendChild(banner);
+
+// create span contain START YOUR QUIZ HERE append to banner 
+let descipe = document.createElement("span");
+descipe.textContent = "START YOUR QUIZ HERE";
+banner.appendChild(descipe);
+
+
+// create button for create question class name is ".btn-create-newQues"  append to banner
+let btnCreateNew = document.createElement("button");
+btnCreateNew.className = "btn-create-newQues";
+btnCreateNew.textContent = "START CREATE QUIZ";
+banner.appendChild(btnCreateNew);
 
 // 3 create div for form class name "form" append to container 
 let forms = document.createElement('div');

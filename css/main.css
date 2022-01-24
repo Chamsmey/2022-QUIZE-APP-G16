@@ -88,7 +88,7 @@ header .menu {
     margin-top: 20px;
 }
 
-.new-create-btn {
+.btn-create-newQues {
     width: 25%;
     padding: 10px 15px 10px 15px;
     margin-bottom: 30px;
@@ -99,7 +99,7 @@ header .menu {
     cursor: pointer;
 }
 
-.new-create-btn:hover {
+.btn-create-newQues:hover {
     box-shadow: 2px 2px 5px rgb(102, 102, 102);
     margin-right: 2px;
     margin-bottom: 32px;
