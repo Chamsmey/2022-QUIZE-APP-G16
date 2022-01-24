@@ -225,6 +225,8 @@ containQuest.appendChild(Completed);
 
 // menu ------------------------------
 function display(){
+    let banners = document.querySelector(".banner");
+    banners.style.display= "none";
     createBtn.style.background = "#FF9900";
     createBtn.style.color = "#ffff";
     console.log(container);
@@ -234,7 +236,7 @@ function display(){
 }    
 forms.style.display ="none";
 let datas =[];
-let banner = document.querySelector(".banner");
+let banners = document.querySelector(".banner");
 forms.style.display ="none";
 containQuest.style.display ="none";
 
