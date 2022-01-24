@@ -39,8 +39,8 @@ btnQuiz.addEventListener("click", hideOther)
 menu.appendChild(btnQuiz);
 
 // CREATE FUNCTION TO CHECK ALL ANSWERS ARE HAVE BEEN INPUT OR NOT
+let ansers = document.getElementsByName('inputAnswer');
 function validAnswer() {
-    let ansers = document.getElementsByName('inputAnswer');
     for (let value of ansers) {
         if (value.value === '') {
             return false;
@@ -50,8 +50,8 @@ function validAnswer() {
 }
 
 // CREATE FUNCTION TO CHECK THE CORRECT ANSWER IS CHECK OR NOT
+let checkRadio = document.getElementsByClassName('answer')
 function validRadio() {
-    let checkRadio = document.getElementsByClassName('answer')
     for (let value of checkRadio) {
         if (value.checked) {
             return true;
@@ -70,21 +70,11 @@ function ShowQuestions(event) {
         // CREATE DICTIONARY TO STORE QUESTION AND ANSWER
         let dataQus = {};
     
-        // CREATE LI TO STORE QUESTION
-        let li = document.createElement("li");
-        let question = document.createElement("span");
-        question.className = "contant-qus";
-        question.textContent = getQuestion.value;
-    
-        // key question ---------------
-        dataQus.question =getQuestion.value;
-        
-        let score = document.createElement("span");
-        score.className = "score";
-        score.textContent = "score :" + getScore.value;
+        // GET KEY QUESTION AND SCORE ---------------
+        dataQus.question = getQuestion.value;
         dataQus.score = getScore.value;
         
-        // key answers iin data question -----------
+        // GET KEY ANSWERS -----------
         let answers =[];
         let indexOfanswer = 0;
         for (let answer of getAnswer) {
@@ -93,10 +83,47 @@ function ShowQuestions(event) {
             }
             answers.push(answer.nextElementSibling.value);
             indexOfanswer += 1;
-            
         };
+
         dataQus.answers=answers;
-        
+
+        // add data to main data 
+        datas.push(dataQus);
+        console.log(datas);
+
+        // ASSIGN ALL INPUT TO AN EMPTY
+        getQuestion.value = '';
+        for (let input of ansers) {
+            input.value = '';
+        }
+        for (let radio of checkRadio) {
+            radio.checked = false;
+        }
+
+        // CALL FUNCTION TO DISPLAY QUESTION
+        displayQuest();
+    }else {
+        window.confirm('You have to fill all datas')
+    }
+}
+function displayQuest() {
+    containQuest.removeChild(containQuest.lastElementChild);
+    let  ul = document.createElement('ul');
+    containQuest.appendChild(ul);
+    for (let value of datas) {
+        // CREATE LI TO CONTAIN QUESTIONS
+        let li = document.createElement("li");
+
+        // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
+        let question = document.createElement("span");
+        question.className = "contant-qus";
+        question.textContent = value.question;
+
+        // CREATE SPAN TO CONTAIN SCORE
+        let score = document.createElement("span");
+        score.className = "score";
+        score.textContent = "score :" + value.score;
+
         // create btn to edit and delete
         let editer = document.createElement("span");
         editer.className = "editer";
@@ -104,7 +131,8 @@ function ShowQuestions(event) {
         i.className = "fa fa-edit edit";
         let deletes = document.createElement("i");
         deletes.className = "fa fa-trash delete";
-    
+        
+        // APPEND CONTAIN TO LI AND APPEND LI TO UL
         editer.appendChild(i);
         editer.appendChild(deletes);
         li.appendChild(question);
@@ -112,17 +140,9 @@ function ShowQuestions(event) {
         li.appendChild(editer);
         let qusCompleted = document.querySelector("ul");
         qusCompleted.appendChild(li);
-        
-        
-        // add data to main data 
-        datas.push(dataQus);
-    
-        console.log(datas);
-    }else {
-        window.confirm('You have to fill all datas')
+
     }
 }
-
 
 
 // 2create div for container class name "container" ------append to body
