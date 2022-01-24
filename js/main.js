@@ -207,7 +207,7 @@ let btn = document.querySelector('#add');
 // add eventlistener to btn create question
 btn.addEventListener("click", ShowQuestions);
 
-//create div for add question contain add button  
+
 
 // create div to contain all question
 let containQuest = document.createElement('div');
