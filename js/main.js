@@ -254,6 +254,12 @@ function displayQuiz(object) {
     let questionSide = document.createElement("div");
     questionSide.className = "top-side";
     toQuizContainer.appendChild(questionSide);
+    // title block
+    let quizTitle = document.createElement("span");
+    quizTitle.className = "dis-quiz-title";
+    quizTitle.textContent = document.getElementById("title").value;
+    questionSide.appendChild(quizTitle);
+    // question block
     let disQuestion = document.createElement("span");
     disQuestion.textContent = object.question;
     disQuestion.id = "dis-question";
