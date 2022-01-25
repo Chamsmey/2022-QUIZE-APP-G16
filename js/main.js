@@ -107,6 +107,7 @@ function ShowQuestions(event) {
     }
 }
 function displayQuest() {
+    computeScore.style.display = "none";
     containQuest.removeChild(containQuest.lastElementChild);
     let  ul = document.createElement('ul');
     let  deleteId = 0;
@@ -283,15 +284,18 @@ containQuest.appendChild(Completed);
 var questionNumber = 0;
 var disAnswerID = 0;
 let totalScore = 0;
+let scores = 0
 function hideOther() {
     if (datas.length > 0) {
         forms.style.display = "none";
         header.style.display = "none";
         containQuest.style.display = "none";
         allQuestion.style.display = "none";
+        computeScore.style.display = "none";
         questionNumber = 0
         disAnswerID = 0;
         totalScore = 0;
+        scores = 0;
         displayQuiz(datas[0])
     } else {
         window.alert("No quiz to play!")
@@ -301,6 +305,7 @@ function hideOther() {
 // display quiz 
 let isAnswerChose = false
 function displayQuiz(object) {
+    computeScore.style.display = "none";
     isAnswerChose = false
     var toQuizContainer = document.createElement("section");
     toQuizContainer.className = "display-quiz";
@@ -386,10 +391,14 @@ function nextQuestion() {
     } else {
         window.alert("Please choose the answer!")
     }
+    if (questionNumber === datas.length) {
+        displayScore();
+    }
 }
 
 // count score 
 function countScore() {
+    scores += parseInt(datas[questionNumber].score);
     if (selectedAnswer == datas[questionNumber].correct) {
         totalScore += parseInt(datas[questionNumber].score);
     }
@@ -400,10 +409,36 @@ function countScore() {
 function removeQuestion(event) {
     // get target and button id
     let getTarget = event.target;
-    let btnId = getTarget.id
-    datas.splice(btnId, 1)
-    displayQuest()
+    let btnId = getTarget.id;
+    datas.splice(btnId, 1);
+    displayQuest();
 }
+
+// CREATE DIV TO CLASS display-score TO CONTAIN SCORE AND APPEND IT TO CONTAINER
+let disScore = document.createElement('div');
+disScore.className = 'display-score';
+container.appendChild(disScore);
+
+//CREATE 2 SPAN AND APPEND TO DIV
+let span1 = document.createElement('span');
+span1.className = 'text-score';
+span1.textContent = 'your score';
+disScore.appendChild(span1);
+
+let span2 = document.createElement('span');
+span2.className = 'your-scores';
+span2.textContent = totalScore + ' / ' + scores;
+disScore.appendChild(span2);
+
+let computeScore = document.querySelector('.display-score');
+computeScore.style.display = 'none';
+function displayScore() {
+    span2.textContent = totalScore + ' / ' + scores;
+    header.style.display = "flex";
+    computeScore.style.display = 'flex';
+
+}
+
 
 
 // menu ------------------------------
@@ -414,7 +449,9 @@ function display(){
     createBtn.style.color = "#ffff";
     console.log(container);
     forms.style.display ="block";
-    containQuest.style.display = 'block'
+    containQuest.style.display = 'block';
+    computeScore.style.display = 'none';
+
 
 }    
 let datas =[];

@@ -334,3 +334,26 @@ h3 {
 .quiz-btn-next:hover {
     box-shadow: 2px 2px 5px rgb(102, 102, 102);
 }
+
+/* DISPLAY SCORE */
+.display-score {
+    width: 60%;
+    margin: auto;
+    background: orange;
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.text-score, .your-scores {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 24px;
+    color: #fff;
+}
+.text-score {
+    margin-left: 20px;
+}
+.your-scores {
+    margin-right: 20px;
+}
