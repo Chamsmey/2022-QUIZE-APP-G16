@@ -108,6 +108,7 @@ function ShowQuestions(event) {
 }
 function displayQuest() {
     computeScore.style.display = "none";
+    disGBanswer.style.display = 'none';
     containQuest.removeChild(containQuest.lastElementChild);
     let  ul = document.createElement('ul');
     let  deleteId = 0;
@@ -285,13 +286,18 @@ var questionNumber = 0;
 var disAnswerID = 0;
 let totalScore = 0;
 let scores = 0
+let userChose = [];
+let scoreOfEachQuest = [];
 function hideOther() {
+    userChose = [];
+    scoreOfEachQuest = [];
     if (datas.length > 0) {
         forms.style.display = "none";
         header.style.display = "none";
         containQuest.style.display = "none";
         allQuestion.style.display = "none";
         computeScore.style.display = "none";
+        disGBanswer.style.display = 'none';
         questionNumber = 0
         disAnswerID = 0;
         totalScore = 0;
@@ -306,6 +312,7 @@ function hideOther() {
 let isAnswerChose = false
 function displayQuiz(object) {
     computeScore.style.display = "none";
+    disGBanswer.style.display = 'none';
     isAnswerChose = false
     var toQuizContainer = document.createElement("section");
     toQuizContainer.className = "display-quiz";
@@ -363,6 +370,7 @@ function choseAns(event) {
     let changeTarget = event.target;
     let getAnswerId = changeTarget.id;
     selectedAnswer = getAnswerId
+    userChose.push(selectedAnswer);
     for (let item of getAllAnswers) {
         item.style.border = "none";
         if (item.id == getAnswerId) {
@@ -401,8 +409,10 @@ function countScore() {
     scores += parseInt(datas[questionNumber].score);
     if (selectedAnswer == datas[questionNumber].correct) {
         totalScore += parseInt(datas[questionNumber].score);
+        scoreOfEachQuest.push(parseInt(datas[questionNumber].score));
+    }else {
+        scoreOfEachQuest.push(0);
     }
-    console.log(totalScore);
 }
 
 //--Remove a question--
@@ -432,13 +442,97 @@ disScore.appendChild(span2);
 
 let computeScore = document.querySelector('.display-score');
 computeScore.style.display = 'none';
+
 function displayScore() {
     span2.textContent = totalScore + ' / ' + scores;
     header.style.display = "flex";
     computeScore.style.display = 'flex';
+    displayCorrection()
 
 }
 
+// DISPLAY GOOD/BAD ANSWER
+// CREATE DIV TO CONTAIN ALL CORRECTION AND APPEND IT TO CONTAINER
+let containCorrection = document.createElement('div');
+containCorrection.className = 'contain-correction';
+container.appendChild(containCorrection);
+
+let correction = document.createElement('div');
+correction.className = 'correction';
+containCorrection.appendChild(correction);
+
+let disGBanswer = document.querySelector('.contain-correction');
+disGBanswer.style.display = 'none';
+
+// CREATE FUNCTION TO DISPLAY ALL CORRECTION
+function displayCorrection() {
+    disGBanswer.style.display = 'block';
+    disGBanswer.removeChild(disGBanswer.firstElementChild);
+
+    // CREATE DIV CLASSNAME correction TO CONTAIN ANY CORRECTION
+    let correction = document.createElement('div');
+    correction.className = 'correction';
+    containCorrection.appendChild(correction);
+
+    // LOOP ON DATAS TO CREATE AND GET VALUE TO DISPLAY CORRECTION
+    for (let index in datas) {
+        let element = datas[index];
+        let anyCorrection = document.createElement('div');
+        anyCorrection.className = 'result';
+        correction.appendChild(anyCorrection);
+    
+        let cQuest = document.createElement('div');
+        cQuest.className = 'c-quest';
+        anyCorrection.appendChild(cQuest);
+        
+        let quest = document.createElement('span');
+        quest.className = 'quest';
+        quest.textContent = element.question;
+        cQuest.appendChild(quest);
+    
+        let scoreOfanyQuest = document.createElement('span');
+        scoreOfanyQuest.className = 'score-quest';
+        scoreOfanyQuest.textContent = scoreOfEachQuest[index] + ' / ' + element.score;
+        cQuest.appendChild(scoreOfanyQuest);
+    
+        let containAllAnswers = document.createElement('ul');
+        containAllAnswers.className = 'contain-answer';
+        anyCorrection.appendChild(containAllAnswers);
+
+        for (let value in element.answers) {
+            let anyAnsewers = document.createElement('li');
+            anyAnsewers.className = 'correction-answer';
+            containAllAnswers.appendChild(anyAnsewers);
+        
+            let iconCheck = document.createElement("span");
+            iconCheck.className = "check";
+            let radioIcon = document.createElement("i");
+            let classIcon = 'fa fa-circle-o';
+            iconCheck.appendChild(radioIcon);
+            anyAnsewers.appendChild(iconCheck);
+            
+            let anyAnser = document.createElement('span');
+            anyAnser.className = 'text-answer';
+            anyAnser.textContent = element.answers[value];
+            anyAnsewers.appendChild(anyAnser);
+            
+            if (value == userChose[index]) {
+                classIcon = 'fa fa-dot-circle-o';
+                radioIcon.style.color = 'red';
+                anyAnser.style.color = 'red';
+            }
+            if (value == element.correct){
+                classIcon = 'fa fa-dot-circle-o';
+                radioIcon.style.color = 'green';
+                anyAnser.style.color = 'green';
+            }
+            radioIcon.className = classIcon;
+        }
+    
+    
+    }
+
+}
 
 
 // menu ------------------------------
@@ -451,6 +545,7 @@ function display(){
     forms.style.display ="block";
     containQuest.style.display = 'block';
     computeScore.style.display = 'none';
+    disGBanswer.style.display = 'none';
 
 
 }    

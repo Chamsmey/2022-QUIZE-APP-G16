@@ -219,7 +219,7 @@ ul {
     width: 100%;
 }
 
-li {
+.contain-quest ul li {
     border-radius: 5px solid;
     padding: 10px 20px;
     margin-top: 10px;
@@ -306,7 +306,7 @@ h3 {
     margin-top: 70px;
 }
 .answers {
-    background-color: rgb(6, 212, 212);
+    background-color: #06d4d4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -356,4 +356,38 @@ h3 {
 }
 .your-scores {
     margin-right: 20px;
+}
+
+
+/* DISPLAY GOOD/BAD ANSWER */
+.correction {
+    width: 60%;
+    margin: auto;
+    margin-bottom: 20px;
+
+}
+
+.result {
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 2px 2px 5px rgb(102, 102, 102);
+    border-top: 8px solid #18B9E8;
+    border-radius: 10px 10px 0 0;
+
+}
+.c-quest {
+    display: flex;
+    justify-content: space-between;
+}
+.contain-answer {
+    width: 100%;
+    margin-top: 10px;
+}
+.contain-answer .correction-answer {
+    list-style: none;
+    padding: 8px 20px;
+    
+}
+.text-answer {
+    margin-left: 20px;
 }
