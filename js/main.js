@@ -109,6 +109,7 @@ function ShowQuestions(event) {
 function displayQuest() {
     containQuest.removeChild(containQuest.lastElementChild);
     let  ul = document.createElement('ul');
+    let  deleteId = 0;
     containQuest.appendChild(ul);
     for (let value of datas) {
         // CREATE LI TO CONTAIN QUESTIONS
@@ -131,6 +132,10 @@ function displayQuest() {
         i.className = "fa fa-edit edit";
         let deletes = document.createElement("i");
         deletes.className = "fa fa-trash delete";
+        deletes.id = deleteId;
+        console.log(deletes)
+        deleteId += 1;
+        deletes.addEventListener("click", removeQuestion)
         
         // APPEND CONTAIN TO LI AND APPEND LI TO UL
         editer.appendChild(i);
@@ -274,7 +279,7 @@ containQuest.appendChild(Completed);
 
 
 //--Display quiz--
-// hide other element
+// hide other element and create global variables
 var questionNumber = 0;
 var disAnswerID = 0;
 let totalScore = 0;
@@ -301,7 +306,7 @@ function displayQuiz(object) {
     toQuizContainer.className = "display-quiz";
     container.appendChild(toQuizContainer);
 
-    // top side
+    // top side of display quiz
     // title block
     let quizTitle = document.createElement("div");
     quizTitle.className = "dis-quiz-title";
@@ -345,7 +350,7 @@ function displayQuiz(object) {
 }
 
 
-//-- choose answer style--
+//-- choose answer style / style outline when user choose--
 let selectedAnswer = 0
 function choseAns(event) {
     isAnswerChose = true
@@ -364,10 +369,7 @@ function choseAns(event) {
 // next question
 function nextQuestion() {
     if (isAnswerChose) {
-        if (selectedAnswer == datas[questionNumber].correct) {
-            totalScore += parseInt(datas[questionNumber].score);
-        }
-        console.log(totalScore);
+        countScore()
         disAnswerID = 0;
         questionNumber += 1
         let previousQuestion = document.getElementsByClassName("display-quiz");
@@ -386,6 +388,22 @@ function nextQuestion() {
     }
 }
 
+// count score 
+function countScore() {
+    if (selectedAnswer == datas[questionNumber].correct) {
+        totalScore += parseInt(datas[questionNumber].score);
+    }
+    console.log(totalScore);
+}
+
+//--Remove a question--
+function removeQuestion(event) {
+    // get target and button id
+    let getTarget = event.target;
+    let btnId = getTarget.id
+    datas.splice(btnId, 1)
+    displayQuest()
+}
 
 
 // menu ------------------------------
