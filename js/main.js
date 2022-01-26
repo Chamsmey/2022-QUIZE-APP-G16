@@ -283,7 +283,6 @@ containQuest.appendChild(Completed);
 //--Display quiz--
 // hide other element and create global variables
 var questionNumber = 0;
-var disAnswerID = 0;
 let totalScore = 0;
 let scores = 0
 let userChose = [];
@@ -306,6 +305,13 @@ function hideOther() {
     } else {
         window.alert("No quiz to play!")
     }
+}
+
+// display one question at a time
+var disAnswerID = 0;
+function oneQuesToDisplay() {
+    // increase number of question to display
+    disAnswerID += 1
 }
 
 // display quiz 
@@ -346,7 +352,7 @@ function displayQuiz(object) {
         disAnswerContain.textContent = answer;
         disAnswerContain.addEventListener("click", choseAns)
         answerSide.appendChild(disAnswerContain)
-        disAnswerID += 1
+        oneQuesToDisplay()
      }
 
     //button side
