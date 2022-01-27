@@ -86,10 +86,13 @@ function ShowQuestions(event) {
         };
 
         dataQus.answers=answers;
+        dataQus.topic = topic.value;
 
         // add data to main data 
         datas.push(dataQus);
 
+        // ADD DATA TO LOCALSTORAGE
+        saveData(datas);
 
         // ASSIGN ALL INPUT TO AN EMPTY
         getQuestion.value = '';
@@ -109,46 +112,49 @@ function ShowQuestions(event) {
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
-    // containQuest.removeChild(containQuest.lastElementChild);
-    let deleteUl = document.querySelector('.contain-quest ul');
-    deleteUl.remove();
-    let  ul = document.createElement('ul');
-    let  deleteId = 0;
-    containQuest.appendChild(ul);
-    for (let value of datas) {
-        // CREATE LI TO CONTAIN QUESTIONS
-        let li = document.createElement("li");
-
-        // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
-        let question = document.createElement("span");
-        question.className = "contant-qus";
-        question.textContent = value.question;
-
-        // CREATE SPAN TO CONTAIN SCORE
-        let score = document.createElement("span");
-        score.className = "score";
-        score.textContent = "score :" + value.score;
-
-        // create btn to edit and delete
-        let editer = document.createElement("span");
-        editer.className = "editer";
-        let i = document.createElement("i");
-        i.className = "fa fa-edit edit";
-        let deletes = document.createElement("i");
-        deletes.className = "fa fa-trash delete";
-        deletes.id = deleteId;
-        deleteId += 1;
-        deletes.addEventListener("click", removeQuestion)
-        
-        // APPEND CONTAIN TO LI AND APPEND LI TO UL
-        editer.appendChild(i);
-        editer.appendChild(deletes);
-        li.appendChild(question);
-        li.appendChild(score);
-        li.appendChild(editer);
-        let qusCompleted = document.querySelector("ul");
-        qusCompleted.appendChild(li);
-
+    containQuest.removeChild(containQuest.lastElementChild);
+    // let deleteUl = document.querySelector('.contain-quest ul');
+    // deleteUl.remove();
+    if (localStorage.length > 0) {
+        datas = JSON.parse(localStorage.getItem('datas'));       
+        let  ul = document.createElement('ul');
+        let  deleteId = 0;
+        containQuest.appendChild(ul);
+        for (let value of datas) {
+            // CREATE LI TO CONTAIN QUESTIONS
+            let li = document.createElement("li");
+    
+            // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
+            let question = document.createElement("span");
+            question.className = "contant-qus";
+            question.textContent = value.question;
+    
+            // CREATE SPAN TO CONTAIN SCORE
+            let score = document.createElement("span");
+            score.className = "score";
+            score.textContent = "score :" + value.score;
+    
+            // create btn to edit and delete
+            let editer = document.createElement("span");
+            editer.className = "editer";
+            let i = document.createElement("i");
+            i.className = "fa fa-edit edit";
+            let deletes = document.createElement("i");
+            deletes.className = "fa fa-trash delete";
+            deletes.id = deleteId;
+            deleteId += 1;
+            deletes.addEventListener("click", removeQuestion)
+            
+            // APPEND CONTAIN TO LI AND APPEND LI TO UL
+            editer.appendChild(i);
+            editer.appendChild(deletes);
+            li.appendChild(question);
+            li.appendChild(score);
+            li.appendChild(editer);
+            let qusCompleted = document.querySelector("ul");
+            qusCompleted.appendChild(li);
+    
+        }
     }
 }
 
@@ -295,7 +301,6 @@ function hideOther() {
         forms.style.display = "none";
         header.style.display = "none";
         containQuest.style.display = "none";
-        allQuestion.style.display = "none";
         computeScore.style.display = "none";
         disGBanswer.style.display = 'none';
         questionNumber = 0
@@ -331,7 +336,7 @@ function displayQuiz(object) {
     quizTitle.className = "dis-quiz-title";
     toQuizContainer.appendChild(quizTitle);
     let title = document.createElement("span")
-    title.textContent = document.getElementById("title").value;
+    title.textContent = object.topic;
     quizTitle.appendChild(title)
     // question and answer block
     let questionAnswerSide = document.createElement("div");
@@ -429,9 +434,11 @@ function countScore() {
 //--Remove a question--
 function removeQuestion(event) {
     // get target and button id
+    datas = JSON.parse(localStorage.getItem('datas'));       
     let getTarget = event.target;
     let btnId = getTarget.id;
     datas.splice(btnId, 1);
+    saveData(datas);
     displayQuest();
 }
 
@@ -546,6 +553,11 @@ function displayCorrection() {
 
 }
 
+// CREATE FUNCTION TO SAVE DATA TO LOCALSTORAGE
+function saveData(data) {
+    localStorage.setItem('datas', JSON.stringify(data));
+}
+
 
 // menu ------------------------------
 function display(){
@@ -558,10 +570,9 @@ function display(){
     containQuest.style.display = 'block';
     computeScore.style.display = 'none';
     disGBanswer.style.display = 'none';
-    allQuestion.style.display = 'block';
-
-
+    displayQuest();
 }    
+
 let datas =[];
 let banners = document.querySelector(".banner");
 forms.style.display ="none";
@@ -580,6 +591,5 @@ let getScore = document.querySelector("#score");
 let getAnswer = document.querySelectorAll(".answer");
 let btnAdd = document.querySelector("#add");
 let topic = document.querySelector('#title');
-
 
 
