@@ -5,16 +5,22 @@
 }
 
 body{
-    background: #ddd;
+    background-image: url(../images/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position-x: center;
+    background-position-y: -190px;
 }
 
 /* Navbar-------------------------------- */
 
 header {
-    background: #18B9E8;
+    background: #1d2570a6;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0px 2px 10px rgb(131, 131, 131);
 }
 
 header .logo-image {
@@ -33,6 +39,8 @@ header .logo-image #logo {
 .logo-image span {
     margin-left: 10px;
     font-weight: 700;
+    font-size: larger;
+    color: white;
 }
 
 .form {
@@ -42,7 +50,6 @@ header .logo-image #logo {
 }
 
 header .menu {
-    background: #18B9E8;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -57,6 +64,7 @@ header .menu {
     font-weight: bold;
     margin-right: 20px;
     text-transform: uppercase;
+    color: #1d2570de;
 }
 
 
@@ -74,11 +82,15 @@ header .menu {
     width: 60%;
     height: 450px;
     margin: auto;
-    margin-top: 50px;
-    background-image: url(../images/feature.jpg);
-    background-size: cover;
-    background-position: center;
+    margin-top: 80px;
+    background-color: rgba(255, 255, 255, 0.226);
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 20px;
+    background-image: url(../images/banner.png);
+    background-size: unset;
+    background-repeat: no-repeat;
     display: flex;
+    background-position: center;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -87,7 +99,7 @@ header .menu {
 .banner span {
     font-weight: bold;
     font-size: 30px;
-    color: white;
+    color: #1d2570;
     margin-top: 20px;
 }
 
@@ -98,13 +110,12 @@ header .menu {
     font-weight: bold;
     color: white;
     border: none;
-    background-color: orange;
+    background-color: #500087;
     cursor: pointer;
 }
 
 .btn-create-newQues:hover {
-    box-shadow: 2px 2px 5px rgb(102, 102, 102);
-    margin-right: 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 32px;
 }
 
@@ -114,14 +125,14 @@ header .menu {
 .header-form {
     border-radius: 10px;
     width: 100%;
-    background: #fff;
-    box-shadow: 2px 2px 5px #ddd;
+    background: rgba(255, 255, 255, 0.815);
+    box-shadow: 2px 2px 5px rgb(158, 158, 158);
 }
 
 h2 {
     border-radius: 10px 10px 0 0;
     color: #fff;
-    background: #FF9900;
+    background: #1d2570a6;
     padding: 20px;
 }
 
@@ -132,13 +143,12 @@ h2 {
     padding: 10px;
     outline: none;
     border: none;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.0);
     border-bottom: 1px solid rgb(192, 192, 192);
 }
 #title:focus {
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid #1d2570de;
 }
-
 .define {
     display: flex;
     justify-content: space-between;
@@ -160,12 +170,15 @@ h2 {
 #body-form {
     margin-top: 20px;
     width: 100%;
-    background: #ffff;
+    background: rgba(255, 255, 255, 0.815);
     padding: 20px;
     box-sizing: border-box;
-    border-left: 8px solid #18B9E8;
+    border-left: 8px solid #1d25709d;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px #ddd;
+    box-shadow: 2px 2px 5px rgb(158, 158, 158);
+    color: #1d2570;
+    font-size: 15px;
+    font-weight: 550;
 }
 
 #question-input {
@@ -177,8 +190,11 @@ h2 {
     margin: 10px 0;
     border-bottom: 1px solid rgb(192, 192, 192);
 }
+input[name="question"] {
+    background-color: rgba(255, 255, 255, 0);
+}
 #question-input:focus {
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid #1d2570de;
 }
 
 input[name="inputAnswer"] {
@@ -189,10 +205,11 @@ input[name="inputAnswer"] {
     padding: 8px;
     margin: 8px 0;
     margin-left: 15px;
+    background-color: rgba(255, 255, 255, 0);
     border-bottom: 1px solid rgb(192, 192, 192);
 }
 input[name="inputAnswer"]:focus {
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid #1d2570de;
 }
 
 .footer-form {
@@ -205,8 +222,9 @@ input[name="inputAnswer"]:focus {
     border: none;
     padding: 8px 30px;
     border-radius: 8px;
-    background: #FF9900;
+    background: #00ADE3;
     color: #fff;
+    cursor: pointer;
 }
 
 
@@ -225,9 +243,12 @@ ul {
     margin-top: 10px;
     cursor: pointer;
     display: flex;
+    font-size: 15px;
     justify-content:space-between;
-    background: #ffff;
-    box-shadow: 0px 0px 2px 1px #ddd;
+    align-items: center;
+    background: #510087;
+    color: white;
+    box-shadow: 2px 2px 5px rgb(158, 158, 158);
 }
 
 .btns {
@@ -257,9 +278,15 @@ ul {
 }
 
 h3 {
+    margin: auto;
     text-align: center;
     margin-top: 20px;
-
+    font-size: larger;
+    color: #1d2570de;
+    width: 60%;
+    padding: 7px 0 7px 0;
+    box-shadow: 2px 2px 5px 1px rgb(158, 158, 158);
+    background: rgba(255, 255, 255, 0.767);
 }
 
 
@@ -275,24 +302,40 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
-    /* border-bottom: solid 1px white; */
+    background-color: #1d2570d3;
+    box-shadow: 0px 2px 10px rgb(131, 131, 131);
+    border-bottom: solid 1px #00aee34d;
 }
 .dis-quiz-title span {
     color: white;
     font-size: 30px;
     font-weight: bolder;
+    margin-bottom: 5px;
 }
-.question-block {
+/* question and answer */
+.question-answer-block {
     margin: auto;
-    width: 100%;
-    height: 200px;
+    width: 80%;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #51008749;
+    /* background-color: #1d257056; */
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+.show-question {
+    margin: auto;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: orange;
+    margin-top: 70px;
 }
-.question-block #dis-question {
+#dis-question {
     font-weight: bolder;
     color: white;
     font-size: 27px;
@@ -300,46 +343,51 @@ h3 {
 .bottom-side {
     margin: auto;
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     width: 90%;
-    grid-template-columns: 50% 50%;
-    gap: 10px 20px;
-    margin-top: 70px;
+    box-sizing: border-box;
+    margin-bottom: 50px;
 }
-.answers {
-    background-color: #06d4d4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.anAnswer {
     cursor: pointer;
-    height: 100px;
     box-sizing: border-box;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 16px;
+    color: white;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    display: flex;
+    padding: 0 20px 0 20px;
+    align-items: center;
+    background-color: #1d2570de;
+    border-radius: 60px;
 }
 .quiz-btn-container {
-    width: 90%;
+    width: 80%;
     margin: auto;
     text-align: end;
-    margin-top: 35px;
 }
 .quiz-btn-next {
     padding: 13px 40px 13px 40px;
     border: none;
-    background-color: orange;
+    background-color: #00ADE3;
     font-weight: bold;
     color: white;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 20px;
 }
 .quiz-btn-next:hover {
-    box-shadow: 2px 2px 5px rgb(102, 102, 102);
+    background-color: #05a3d3;
 }
 
 /* DISPLAY SCORE */
 .display-score {
     width: 60%;
     margin: auto;
-    background: orange;
+    background: #510087d7;
     padding: 22px 0;
     display: flex;
     justify-content: space-between;
@@ -370,8 +418,9 @@ h3 {
 .result {
     padding: 20px;
     margin-top: 20px;
-    box-shadow: 2px 2px 5px rgb(102, 102, 102);
-    border-top: 8px solid #18B9E8;
+    box-shadow: 1px 1px 3px rgb(102, 102, 102);
+    background-color: rgba(255, 255, 255, 0.815);
+    border-top: 8px solid #1d2570c4;
     border-radius: 10px 10px 0 0;
 
 }

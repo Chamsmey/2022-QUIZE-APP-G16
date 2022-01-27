@@ -135,7 +135,6 @@ function displayQuest() {
         let deletes = document.createElement("i");
         deletes.className = "fa fa-trash delete";
         deletes.id = deleteId;
-        console.log(deletes)
         deleteId += 1;
         deletes.addEventListener("click", removeQuestion)
         
@@ -164,7 +163,7 @@ container.appendChild(banner);
 
 // create span contain START YOUR QUIZ HERE append to banner 
 let descipe = document.createElement("span");
-descipe.textContent = "START YOUR QUIZ HERE";
+descipe.textContent = "LET'S START YOUR QUIZ!";
 banner.appendChild(descipe);
 
 
@@ -303,7 +302,7 @@ function hideOther() {
         scores = 0;
         displayQuiz(datas[0])
     } else {
-        window.alert("No quiz to play!")
+        window.alert("No quiz for now!")
     }
 }
 
@@ -311,7 +310,7 @@ function hideOther() {
 var disAnswerID = 0;
 function oneQuesToDisplay() {
     // increase number of question to display
-    disAnswerID += 1
+    questionNumber += 1
 }
 
 // display quiz 
@@ -332,34 +331,38 @@ function displayQuiz(object) {
     let title = document.createElement("span")
     title.textContent = document.getElementById("title").value;
     quizTitle.appendChild(title)
-    // question block
-    let questionSide = document.createElement("div");
-    questionSide.className = "question-block";
-    toQuizContainer.appendChild(questionSide);
+    // question and answer block
+    let questionAnswerSide = document.createElement("div");
+    questionAnswerSide.className = "question-answer-block";
+    toQuizContainer.appendChild(questionAnswerSide);
+
+    let questBlock = document.createElement("div");
+    questBlock.className = "show-question";
+    questionAnswerSide.appendChild(questBlock)
     let disQuestion = document.createElement("span");
     disQuestion.textContent = object.question;
     disQuestion.id = "dis-question";
-    questionSide.appendChild(disQuestion);
+    questBlock.appendChild(disQuestion);
 
     //bottom side / answers side
     let answerSide = document.createElement("div");
     answerSide.className = "bottom-side";
-    toQuizContainer.appendChild(answerSide);
+    questionAnswerSide.appendChild(answerSide);
     for (let answer of object.answers) {
         let disAnswerContain = document.createElement("p");
-        disAnswerContain.className = "answers";
-        disAnswerContain.id = disAnswerID
+        disAnswerContain.className = "anAnswer";
+        disAnswerContain.id = disAnswerID;
         disAnswerContain.textContent = answer;
-        disAnswerContain.addEventListener("click", choseAns)
-        answerSide.appendChild(disAnswerContain)
-        oneQuesToDisplay()
+        disAnswerContain.addEventListener("click", choseAns);
+        answerSide.appendChild(disAnswerContain);
+        disAnswerID += 1
      }
 
     //button side
     //btn next
     let quizBtnContainer = document.createElement("div");
     quizBtnContainer.className = "quiz-btn-container";
-    container.appendChild(quizBtnContainer)
+    toQuizContainer.appendChild(quizBtnContainer)
     let quizButtonNext = document.createElement("button");
     quizButtonNext.className = "quiz-btn-next";
     quizButtonNext.textContent = "NEXT";
@@ -372,25 +375,25 @@ function displayQuiz(object) {
 let selectedAnswer = 0
 function choseAns(event) {
     isAnswerChose = true
-    let getAllAnswers = document.getElementsByClassName("answers")
+    let getAllAnswers = document.getElementsByClassName("anAnswer")
     let changeTarget = event.target;
     let getAnswerId = changeTarget.id;
     selectedAnswer = getAnswerId
-    userChose.push(selectedAnswer);
     for (let item of getAllAnswers) {
         item.style.border = "none";
         if (item.id == getAnswerId) {
-            item.style.border = "solid 2px orange"
+            item.style.border = "solid 2px #ffff"
         }
     }
 }
 
 // next question
 function nextQuestion() {
+    userChose.push(selectedAnswer);
     if (isAnswerChose) {
         countScore()
         disAnswerID = 0;
-        questionNumber += 1
+        oneQuesToDisplay()
         let previousQuestion = document.getElementsByClassName("display-quiz");
         for (let item of previousQuestion) {
             item.style.display = "none"
@@ -474,6 +477,7 @@ disGBanswer.style.display = 'none';
 function displayCorrection() {
     disGBanswer.style.display = 'block';
     disGBanswer.removeChild(disGBanswer.firstElementChild);
+    document.body.style.backgroundImage = "url(../images/bg.png)";
 
     // CREATE DIV CLASSNAME correction TO CONTAIN ANY CORRECTION
     let correction = document.createElement('div');
@@ -545,7 +549,7 @@ function displayCorrection() {
 function display(){
     let banners = document.querySelector(".banner");
     banners.style.display= "none";
-    createBtn.style.background = "#FF9900";
+    createBtn.style.background = "#00ADE3";
     createBtn.style.color = "#ffff";
     console.log(container);
     forms.style.display ="block";
