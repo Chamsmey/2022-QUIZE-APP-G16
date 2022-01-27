@@ -1,4 +1,4 @@
-
+// localStorage.clear();
 
 //CREATE HEADER
 let header = document.createElement('header');
@@ -112,10 +112,8 @@ function ShowQuestions(event) {
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
-    containQuest.removeChild(containQuest.lastElementChild);
-    // let deleteUl = document.querySelector('.contain-quest ul');
-    // deleteUl.remove();
     if (localStorage.length > 0) {
+        containQuest.removeChild(containQuest.lastElementChild);
         datas = JSON.parse(localStorage.getItem('datas'));       
         let  ul = document.createElement('ul');
         let  deleteId = 0;
