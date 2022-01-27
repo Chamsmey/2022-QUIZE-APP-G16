@@ -89,7 +89,7 @@ function ShowQuestions(event) {
 
         // add data to main data 
         datas.push(dataQus);
-        console.log(datas);
+
 
         // ASSIGN ALL INPUT TO AN EMPTY
         getQuestion.value = '';
@@ -109,7 +109,9 @@ function ShowQuestions(event) {
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
-    containQuest.removeChild(containQuest.lastElementChild);
+    // containQuest.removeChild(containQuest.lastElementChild);
+    let deleteUl = document.querySelector('.contain-quest ul');
+    deleteUl.remove();
     let  ul = document.createElement('ul');
     let  deleteId = 0;
     containQuest.appendChild(ul);
@@ -552,6 +554,7 @@ function display(){
     containQuest.style.display = 'block';
     computeScore.style.display = 'none';
     disGBanswer.style.display = 'none';
+    allQuestion.style.display = 'block';
 
 
 }    
