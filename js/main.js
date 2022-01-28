@@ -353,35 +353,30 @@ function displayQuiz(object) {
     let quizTitle = document.createElement("div");
     quizTitle.className = "dis-quiz-title";
     toQuizContainer.appendChild(quizTitle);
-    
-    // home button
-    let cancelQuiz = document.createElement("div");
-    cancelQuiz.className = "contain-home";
-    quizTitle.appendChild(cancelQuiz);
-    let cancelBtn = document.createElement("i");
-    cancelBtn.className = "fa fa-home home-button";
-    cancelBtn.addEventListener("click", cancelTheQuiz)
-    cancelQuiz.appendChild(cancelBtn);
 
     let title = document.createElement("span")
     title.textContent = document.getElementById("title").value;
     quizTitle.appendChild(title);
 
-    // empty element
-    let emptyEle = document.createElement("div");
-    emptyEle.className = "empty-ele"
-    quizTitle.appendChild(emptyEle);
-
     // amount question complete
     let completeQuestion = document.createElement("div");
     completeQuestion.className = "complete-question";
     toQuizContainer.appendChild(completeQuestion);
+
+    // home button
+    let cancelQuiz = document.createElement("div");
+    cancelQuiz.className = "contain-home";
+    completeQuestion.appendChild(cancelQuiz);
+    let cancelBtn = document.createElement("i");
+    cancelBtn.className = "fa fa-home home-button";
+    cancelBtn.addEventListener("click", cancelTheQuiz)
+    cancelQuiz.appendChild(cancelBtn);
+
+    // show question number
     let showAmount = document.createElement("span");
     completeQuestion.appendChild(showAmount);
     showAmount.textContent = questionNumber+1 + " / " + datas.length;
 
-    // BACK-TO-HOME BUTTON
-    // let btnHome =
 
     title.textContent = object.topic;
     quizTitle.appendChild(title)
@@ -442,7 +437,7 @@ function choseAns(event) {
     for (let item of getAllAnswers) {
         item.style.border = "none";
         if (item.id == getAnswerId) {
-            item.style.border = "solid 1px #1d2570"
+            item.style.border = "solid 1px #DA22FF"
         }
     }
 }
