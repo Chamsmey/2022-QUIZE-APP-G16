@@ -195,8 +195,42 @@ function ShowQuestions(event) {
 
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
+
+        if (! validAnswer()) {
+            for (let value of ansers) {
+                value.style.borderBottom = '1px solid #c0c0c0'; 
+            }
+        }
+        inputTitle.style.borderBottom = '1px solid #c0c0c0';
+        getQuestion.style.borderBottom = '1px solid #c0c0c0';
+        
     }else {
-        window.confirm('You have to fill all datas')
+        window.alert('Please fill all ! Be Careful ! You must click the correct answer');
+        if (topic.value === '') {
+            inputTitle.style.borderBottom = '1px solid red';
+        }else {
+            inputTitle.style.borderBottom = '1px solid #c0c0c0';
+        } 
+        
+        if (getQuestion.value === '') {
+            getQuestion.style.borderBottom = '1px solid red';
+        }else {
+            getQuestion.style.borderBottom = '1px solid #c0c0c0';
+        }
+        if (! validAnswer()) {
+            for (let value of ansers) {
+                if (value.value === '') {
+                    value.style.borderBottom = '1px solid red'; 
+                }else {
+                    value.style.borderBottom = '1px solid #c0c0c0'; 
+                }
+            }
+            
+        }else {
+            for (let value of ansers) {
+                value.style.borderBottom = '1px solid #c0c0c0'; 
+            }
+        } 
     }
 }
 function displayQuest() {
