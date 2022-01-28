@@ -79,6 +79,8 @@ function editQuest(event) {
     console.log(datas);
     btn.style.display = "none";
     update.style.display = "block";
+    inputRadio = document.querySelectorAll(".answer");
+    console.log(inputRadio);
     let getInput = document.querySelectorAll(".inputAnswer");
     event.preventDefault();
     if (event.target.className = "fa fa-edit edit") {
@@ -93,6 +95,11 @@ function editQuest(event) {
             console.log(datas[indexOfQueston].answers[item]);
             item.value = datas[indexOfQueston].answers[index];
             index += 1;
+        }
+        for (let index in inputRadio){
+            if(parseInt(index)===datas[indexOfQueston].correct){
+                inputRadio[index].checked=true;
+            }
         }
     }
 }
