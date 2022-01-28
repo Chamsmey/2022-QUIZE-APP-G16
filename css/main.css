@@ -378,12 +378,14 @@ h3 {
 .quiz-btn-next {
     padding: 13px 40px 13px 40px;
     border: none;
-    background-color: #00ADE3;
+    background-color: #4fafcc;
     font-weight: bold;
     color: white;
     font-size: 16px;
     cursor: pointer;
     margin-top: 20px;
+    box-shadow: 1px 1px 3px rgb(102, 102, 102);
+
 }
 .quiz-btn-next:hover {
     background-color: #05a3d3;
