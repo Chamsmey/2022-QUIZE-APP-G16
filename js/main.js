@@ -98,7 +98,7 @@ function editQuest(event) {
         }
         for (let index in inputRadio){
             if(parseInt(index)===datas[indexOfQueston].correct){
-                inputRadio[index].checked=true;
+                inputRadio[index].checked=true; 
             }
         }
     }
