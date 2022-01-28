@@ -73,6 +73,77 @@ function validRadio() {
     return false;
 }
 
+
+
+function editQuest(event) {
+    console.log(datas);
+    btn.style.display = "none";
+    update.style.display = "block";
+    let getInput = document.querySelectorAll(".inputAnswer");
+    event.preventDefault();
+    if (event.target.className = "fa fa-edit edit") {
+        console.log(event.target.id);
+        indexOfQueston = parseInt(event.target.id);
+        let index = 0;
+        let questions = document.querySelector("#question-input");
+        console.log(datas[indexOfQueston].question);
+        questions.value = datas[indexOfQueston].question;
+        topic.value =datas[indexOfQueston].topic;
+        for (let item of getInput) {
+            console.log(datas[indexOfQueston].answers[item]);
+            item.value = datas[indexOfQueston].answers[index];
+            index += 1;
+        }
+    }
+}
+// update question ---------------------
+let indexOfQueston =0;
+function updateQuest(event) {
+    event.preventDefault();
+    btn.style.display = "block";
+    update.style.display = "none";
+    let question = document.getElementsByTagName("li");
+    console.log(question);
+    for(let item in question){
+        if (indexOfQueston ==item){
+            question[item].firstElementChild.textContent =getQuestion.value;
+            question[item].firstElementChild.nextElementSibling.textContent ="score :" + getScore.value;
+        }
+    }
+    datas[indexOfQueston].question=getQuestion.value;
+    datas[indexOfQueston].topic = topic.value;
+    let indexOfanswer = 0;
+    for (let answer of getAnswer) {
+        if (answer.checked) {
+            datas[indexOfQueston] .correct= indexOfanswer;
+        }
+        indexOfanswer+=1;
+    }
+    datas[indexOfQueston] .score= getScore.value;
+    // temporalyAnswers--------------------
+    tempoAnswers =[];
+    /// get all new input answers -----------------------
+    let inputAnswers = document.querySelectorAll(".inputAnswer");
+    for (let a of inputAnswers){
+        tempoAnswers.push(a.value);
+    }
+    console.log(inputAnswers);
+    //aswer udated question ------------------------
+    datas[indexOfQueston].answers=tempoAnswers;
+    empty() ;
+    console.log(tempoAnswers);
+    }
+function empty() {
+    topic.value='';
+    getQuestion.value = '';
+    for (let input of ansers) {
+        input.value = '';
+    }
+    for (let radio of checkRadio) {
+        radio.checked = false;
+    }
+}
+
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
@@ -152,8 +223,10 @@ function displayQuest() {
             let deletes = document.createElement("i");
             deletes.className = "fa fa-trash delete";
             deletes.id = deleteId;
+            i.id= deleteId;
             deleteId += 1;
-            deletes.addEventListener("click", removeQuestion)
+            deletes.addEventListener("click", removeQuestion);
+            i.addEventListener("click",editQuest);
             
             // APPEND CONTAIN TO LI AND APPEND LI TO UL
             editer.appendChild(i);
@@ -266,6 +339,7 @@ for (let i=0; i<4; i++) {
     let inputAnswer = document.createElement('input');
     inputAnswer.type = 'text';
     inputAnswer.name = 'inputAnswer';
+    inputAnswer.className = 'inputAnswer';
     inputAnswer.placeholder = 'Answer' + (i+1);
     choice.appendChild(inputAnswer);
     
@@ -487,6 +561,9 @@ function countScore() {
     }
 }
 
+
+
+
 //--Remove a question--
 function removeQuestion(event) {
     // get target and button id
@@ -665,6 +742,15 @@ containQuest.style.display ="none";
 console.log("Hello the best Group 16");
 let createBtn = document.querySelector(".create-btn");
 createBtn.addEventListener("click",display);
+
+let btnEdit = document.createElement("button");
+btnEdit.textContent = "Update";
+btnEdit.id = "edits";
+addQuestion.appendChild(btnEdit);
+let update = document.querySelector("#edits");
+update.style.display = "none";
+update.addEventListener("click", updateQuest);
+
 
 let btnCreateQuest = document.querySelector('.btn-create-newQues');
 btnCreateQuest.addEventListener('click', display);
