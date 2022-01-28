@@ -76,19 +76,18 @@ function validRadio() {
 
 
 function editQuest(event) {
-    console.log(datas);
+    event.preventDefault();
     btn.style.display = "none";
     update.style.display = "block";
     inputRadio = document.querySelectorAll(".answer");
-    console.log(inputRadio);
     let getInput = document.querySelectorAll(".inputAnswer");
-    event.preventDefault();
     if (event.target.className = "fa fa-edit edit") {
-        console.log(event.target.id);
+        // console.log(event.target.id);
         indexOfQueston = parseInt(event.target.id);
+        inputScore.value =datas[indexOfQueston].score;
+        console.log(datas[indexOfQueston].score);
         let index = 0;
         let questions = document.querySelector("#question-input");
-        console.log(datas[indexOfQueston].question);
         questions.value = datas[indexOfQueston].question;
         topic.value =datas[indexOfQueston].topic;
         for (let item of getInput) {
@@ -102,44 +101,55 @@ function editQuest(event) {
             }
         }
     }
+    colorNormal() ;
 }
 // update question ---------------------
 let indexOfQueston =0;
 function updateQuest(event) {
     event.preventDefault();
-    btn.style.display = "block";
-    update.style.display = "none";
-    let question = document.getElementsByTagName("li");
-    console.log(question);
-    for(let item in question){
-        if (indexOfQueston ==item){
-            question[item].firstElementChild.textContent =getQuestion.value;
-            question[item].firstElementChild.nextElementSibling.textContent ="score :" + getScore.value;
+    if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
+        btn.style.display = "block";
+        update.style.display = "none";
+        let question = document.getElementsByTagName("li");
+        console.log(question);
+        for(let item in question){
+            if (indexOfQueston ==item){
+                question[item].firstElementChild.textContent =getQuestion.value;
+                question[item].firstElementChild.nextElementSibling.textContent ="score :" + getScore.value;
+            }
         }
-    }
-    datas[indexOfQueston].question=getQuestion.value;
-    datas[indexOfQueston].topic = topic.value;
-    let indexOfanswer = 0;
-    for (let answer of getAnswer) {
-        if (answer.checked) {
-            datas[indexOfQueston] .correct= indexOfanswer;
+        datas[indexOfQueston].question=getQuestion.value;
+        datas[indexOfQueston].topic = topic.value;
+        let indexOfanswer = 0;
+        for (let answer of getAnswer) {
+            if (answer.checked) {
+                datas[indexOfQueston] .correct= indexOfanswer;
+            }
+            indexOfanswer+=1;
         }
-        indexOfanswer+=1;
+        datas[indexOfQueston] .score= getScore.value;
+        // temporalyAnswers--------------------
+        tempoAnswers =[];
+        /// get all new input answers -----------------------
+        let inputAnswers = document.querySelectorAll(".inputAnswer");
+        for (let a of inputAnswers){
+            tempoAnswers.push(a.value);
+        }
+        //aswer udated question ------------------------
+        datas[indexOfQueston].answers=tempoAnswers;
+        empty() ;
+    }else{
+        validation();
     }
-    datas[indexOfQueston] .score= getScore.value;
-    // temporalyAnswers--------------------
-    tempoAnswers =[];
-    /// get all new input answers -----------------------
-    let inputAnswers = document.querySelectorAll(".inputAnswer");
-    for (let a of inputAnswers){
-        tempoAnswers.push(a.value);
+}
+function colorNormal() {
+    for (let value of ansers) {
+        value.style.borderBottom = '1px solid #c0c0c0'; 
     }
-    console.log(inputAnswers);
-    //aswer udated question ------------------------
-    datas[indexOfQueston].answers=tempoAnswers;
-    empty() ;
-    console.log(tempoAnswers);
-    }
+
+    inputTitle.style.borderBottom = '1px solid #c0c0c0';
+    getQuestion.style.borderBottom = '1px solid #c0c0c0';    
+}
 function empty() {
     topic.value='';
     getQuestion.value = '';
@@ -150,6 +160,7 @@ function empty() {
         radio.checked = false;
     }
 }
+
 
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
@@ -196,6 +207,8 @@ function ShowQuestions(event) {
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
 
+        colorNormal() ;
+
         if (! validAnswer()) {
             for (let value of ansers) {
                 value.style.borderBottom = '1px solid #c0c0c0'; 
@@ -204,35 +217,42 @@ function ShowQuestions(event) {
         inputTitle.style.borderBottom = '1px solid #c0c0c0';
         getQuestion.style.borderBottom = '1px solid #c0c0c0';
         
-    }else {
-        window.alert('Please fill all ! Be Careful ! You must click the correct answer');
-        if (topic.value === '') {
-            inputTitle.style.borderBottom = '1px solid red';
-        }else {
-            inputTitle.style.borderBottom = '1px solid #c0c0c0';
-        } 
-        
-        if (getQuestion.value === '') {
-            getQuestion.style.borderBottom = '1px solid red';
-        }else {
-            getQuestion.style.borderBottom = '1px solid #c0c0c0';
-        }
-        if (! validAnswer()) {
-            for (let value of ansers) {
-                if (value.value === '') {
-                    value.style.borderBottom = '1px solid red'; 
-                }else {
-                    value.style.borderBottom = '1px solid #c0c0c0'; 
-                }
-            }
-            
-        }else {
-            for (let value of ansers) {
-                value.style.borderBottom = '1px solid #c0c0c0'; 
-            }
-        } 
+    }else{
+        validation();
     }
 }
+
+
+function validation() {
+    window.alert('Please fill all ! Be Careful ! You must click the correct answer');
+    if (topic.value === '') {
+        inputTitle.style.borderBottom = '1px solid red';
+    }else {
+        inputTitle.style.borderBottom = '1px solid #c0c0c0';
+    } 
+    
+    if (getQuestion.value === '') {
+        getQuestion.style.borderBottom = '1px solid red';
+    }else {
+        getQuestion.style.borderBottom = '1px solid #c0c0c0';
+    }
+    if (! validAnswer()) {
+        for (let value of ansers) {
+            if (value.value === '') {
+                value.style.borderBottom = '1px solid red'; 
+            }else {
+                value.style.borderBottom = '1px solid #c0c0c0'; 
+            }
+        }
+        
+    }else {
+        for (let value of ansers) {
+            value.style.borderBottom = '1px solid #c0c0c0'; 
+        }
+    } 
+}
+
+
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
