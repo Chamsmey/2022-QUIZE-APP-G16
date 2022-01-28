@@ -4,10 +4,23 @@
 let header = document.createElement('header');
 document.body.appendChild(header);
 
+// button home and logo
+let homeAndLogo = document.createElement("div");
+homeAndLogo.className ="home-and-logo";
+header.appendChild(homeAndLogo);
+//BUTTON HOME
+let containHome = document.createElement("div");
+containHome.className = "contain-home";
+homeAndLogo.appendChild(containHome);
+let homeButton = document.createElement("i");
+homeButton.className = "fa fa-home home-button";
+homeButton.addEventListener("click", backHome)
+containHome.appendChild(homeButton);
+
 //CREATE DIV CLASS logo-image
 let logoImage = document.createElement('div');
 logoImage.className = 'logo-image';
-header.appendChild(logoImage);
+homeAndLogo.appendChild(logoImage);
 
 //CREATE IMG ID logo 
 let img = document.createElement('img');
@@ -63,7 +76,6 @@ function validRadio() {
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
-
     // CHECK IF ALL INPUT IS VALID
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
 
@@ -301,6 +313,7 @@ function hideOther() {
         containQuest.style.display = "none";
         computeScore.style.display = "none";
         disGBanswer.style.display = 'none';
+        banner.style.display = "none";
         questionNumber = 0
         disAnswerID = 0;
         totalScore = 0;
@@ -319,8 +332,15 @@ function oneQuesToDisplay() {
 }
 
 // display quiz 
-let isAnswerChose = false
+let isAnswerChose = false;
+let isNotFirst = false;
 function displayQuiz(object) {
+    // check to delete last question that displayed
+    if (isNotFirst) {
+        container.removeChild(container.lastElementChild);
+    }
+
+    // main
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
     isAnswerChose = false
@@ -333,7 +353,31 @@ function displayQuiz(object) {
     let quizTitle = document.createElement("div");
     quizTitle.className = "dis-quiz-title";
     toQuizContainer.appendChild(quizTitle);
+
     let title = document.createElement("span")
+    title.textContent = document.getElementById("title").value;
+    quizTitle.appendChild(title);
+
+    // amount question complete
+    let completeQuestion = document.createElement("div");
+    completeQuestion.className = "complete-question";
+    toQuizContainer.appendChild(completeQuestion);
+
+    // home button
+    let cancelQuiz = document.createElement("div");
+    cancelQuiz.className = "contain-home";
+    completeQuestion.appendChild(cancelQuiz);
+    let cancelBtn = document.createElement("i");
+    cancelBtn.className = "fa fa-home home-button";
+    cancelBtn.addEventListener("click", cancelTheQuiz)
+    cancelQuiz.appendChild(cancelBtn);
+
+    // show question number
+    let showAmount = document.createElement("span");
+    completeQuestion.appendChild(showAmount);
+    showAmount.textContent = questionNumber+1 + " / " + datas.length;
+
+
     title.textContent = object.topic;
     quizTitle.appendChild(title)
     // question and answer block
@@ -371,8 +415,14 @@ function displayQuiz(object) {
     let quizButtonNext = document.createElement("button");
     quizButtonNext.className = "quiz-btn-next";
     quizButtonNext.textContent = "NEXT";
+    if (questionNumber+1 == datas.length) {
+        quizButtonNext.textContent = "SUBMIT";
+    }
     quizButtonNext.addEventListener("click", nextQuestion)
     quizBtnContainer.appendChild(quizButtonNext);
+
+    // delete previous question
+    isNotFirst = true
 }
 
 
@@ -387,7 +437,7 @@ function choseAns(event) {
     for (let item of getAllAnswers) {
         item.style.border = "none";
         if (item.id == getAnswerId) {
-            item.style.border = "solid 2px #ffff"
+            item.style.border = "solid 1px #DA22FF"
         }
     }
 }
@@ -416,6 +466,14 @@ function nextQuestion() {
     if (questionNumber === datas.length) {
         displayScore();
     }
+}
+
+// Cancel quiz and back to home
+function cancelTheQuiz() {
+    if (confirm("Are you sure to go back home?") == true) {
+        backHome()
+    }
+
 }
 
 // count score 
@@ -461,7 +519,6 @@ computeScore.style.display = 'none';
 
 function displayScore() {
     span2.textContent = totalScore + ' / ' + scores;
-    header.style.display = "flex";
     computeScore.style.display = 'flex';
     displayCorrection()
 
@@ -484,7 +541,6 @@ disGBanswer.style.display = 'none';
 function displayCorrection() {
     disGBanswer.style.display = 'block';
     disGBanswer.removeChild(disGBanswer.firstElementChild);
-    document.body.style.backgroundImage = "url(../images/bg.png)";
 
     // CREATE DIV CLASSNAME correction TO CONTAIN ANY CORRECTION
     let correction = document.createElement('div');
@@ -548,7 +604,37 @@ function displayCorrection() {
     
     
     }
+    // CREATE OPTIONS AFTER QUIZ
+    // let correctionSect = document.getElementsByClassName("correction");
+    let options = document.createElement("div");
+    options.className = "options";
+    correction.appendChild(options)
+    // HOME BUTTON
+    let btnHome = document.createElement("button");
+    btnHome.className = "btn-home";
+    btnHome.textContent = "HOME";
+    btnHome.addEventListener("click", backHome)
+    options.appendChild(btnHome);
+    // PLAY AGAIN
+    let btnPlayAgain = document.createElement("button");
+    btnPlayAgain.className = "btn-play-again";
+    btnPlayAgain.textContent = "PLAY AGAIN";
+    btnPlayAgain.addEventListener("click", hideOther);
+    options.appendChild(btnPlayAgain);
+}
 
+// Home page
+function backHome() {
+    header.style.display = "flex";
+    disScore.style.display = "none";
+    containCorrection.style.display = "none";
+    banner.style.display = "flex";
+    allQuestion.style.display = "block";
+    createBtn.style.background = "#ffff";
+    createBtn.style.color = "#1d2570";
+    forms.style.display = "none";
+    containQuest.style.display = "none";
+    document.querySelector(".display-quiz").style.display = "none";
 }
 
 // CREATE FUNCTION TO SAVE DATA TO LOCALSTORAGE
@@ -561,7 +647,7 @@ function saveData(data) {
 function display(){
     let banners = document.querySelector(".banner");
     banners.style.display= "none";
-    createBtn.style.background = "#00ADE3";
+    createBtn.style.background = "#DA22FF";
     createBtn.style.color = "#ffff";
     console.log(container);
     forms.style.display ="block";
