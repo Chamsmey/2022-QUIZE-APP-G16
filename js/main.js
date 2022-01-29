@@ -3,7 +3,6 @@
 //CREATE HEADER
 let header = document.createElement('header');
 document.body.appendChild(header);
-
 // button home and logo
 let homeAndLogo = document.createElement("div");
 homeAndLogo.className = "home-and-logo";
@@ -161,8 +160,6 @@ function empty() {
         radio.checked = false;
     }
 }
-
-
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
@@ -204,7 +201,6 @@ function ShowQuestions(event) {
         for (let radio of checkRadio) {
             radio.checked = false;
         }
-
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
 
@@ -222,7 +218,6 @@ function ShowQuestions(event) {
         validation();
     }
 }
-
 
 function validation() {
     window.alert('Please fill all ! Be Careful ! You must click the correct answer');
@@ -245,7 +240,6 @@ function validation() {
                 value.style.borderBottom = '1px solid #c0c0c0';
             }
         }
-
     } else {
         for (let value of ansers) {
             value.style.borderBottom = '1px solid #c0c0c0';
