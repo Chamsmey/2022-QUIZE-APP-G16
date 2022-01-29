@@ -671,7 +671,7 @@ h3 {
 .contain-icons {
     font-size: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: spe;
     align-items: center;
 }
 

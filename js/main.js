@@ -258,14 +258,26 @@ function validation() {
 }
 
 
+function editOnlyATitle() {
+    containQuest.style.display = "block";
+    let containAllQuizs = document.querySelector('.contain-all-quiz');
+    containAllQuizs.style.display = 'none';
+    forms.style.display = "block";
+    displayQuest();
+
+}
+
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
     btnAddQuiz.style.display = "none";
     btnSaveQuiz.style.display = "block";
+
+
     if (localStorage.length > 0) {
         containQuest.removeChild(containQuest.lastElementChild);
         let ul = document.createElement('ul');
+
         let deleteId = 0;
         containQuest.appendChild(ul);
         for (let value of datas) {
@@ -925,6 +937,7 @@ function listQuiz(event) {
                 iEdit.className = "fa fa-edit icon-edit";
                 let iDelete = document.createElement("i");
                 iDelete.className = "fa fa-trash icon-delete";
+                iEdit.addEventListener("click", editOnlyATitle);
                 cIcon.appendChild(iEdit);
                 cIcon.appendChild(iDelete);
                 cIcons.appendChild(cIcon);
