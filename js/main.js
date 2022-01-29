@@ -3,6 +3,7 @@
 //CREATE HEADER
 let header = document.createElement('header');
 document.body.appendChild(header);
+
 // button home and logo
 let homeAndLogo = document.createElement("div");
 homeAndLogo.className = "home-and-logo";
@@ -47,27 +48,9 @@ menu.appendChild(btnCreateQuiz);
 let btnQuiz = document.createElement('div');
 btnQuiz.className = 'quiz-btn';
 btnQuiz.textContent = 'Quiz'
-btnQuiz.addEventListener("click", listQuiz)
+btnQuiz.addEventListener("click", hideOther)
 menu.appendChild(btnQuiz);
 
-// CREATE BUTTON CREATE QUIZ
-let btnSaveAndAddQuiz = document.createElement("div");
-btnSaveAndAddQuiz.className = "save-and-add-quiz";
-document.body.appendChild(btnSaveAndAddQuiz);
-let btnAddQuiz = document.createElement("button");
-btnAddQuiz.textContent = "Add Quiz";
-btnAddQuiz.className = "btn-add-quiz";
-btnSaveAndAddQuiz.appendChild(btnAddQuiz);
-let btnSaveQuiz = document.createElement("button");
-btnSaveQuiz.className = "btn-save-quiz";
-btnSaveQuiz.textContent = "SAVE QUIZ";
-btnSaveAndAddQuiz.appendChild(btnSaveQuiz);
-btnSaveQuiz.addEventListener("click", saveDATA);
-btnAddQuiz.addEventListener("click", display);
-
-
-btnAddQuiz.style.display = "none";
-btnSaveQuiz.style.display = "none";
 // CREATE FUNCTION TO CHECK ALL ANSWERS ARE HAVE BEEN INPUT OR NOT
 let ansers = document.getElementsByName('inputAnswer');
 
@@ -96,6 +79,7 @@ function validRadio() {
 
 function editQuest(event) {
     event.preventDefault();
+    let datas = JSON.parse(localStorage.getItem("datas"));
     btn.style.display = "none";
     update.style.display = "block";
     containQuest.style.display = "none";
@@ -111,7 +95,6 @@ function editQuest(event) {
         questions.value = datas[indexOfQueston].question;
         topic.value = datas[indexOfQueston].topic;
         for (let item of getInput) {
-            console.log(datas[indexOfQueston].answers[index]);
             item.value = datas[indexOfQueston].answers[index];
             index += 1;
         }
@@ -128,6 +111,7 @@ let indexOfQueston = 0;
 
 function updateQuest(event) {
     event.preventDefault();
+    let datas = JSON.parse(localStorage.getItem("datas"));
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
         btn.style.display = "block";
         update.style.display = "none";
@@ -153,8 +137,8 @@ function updateQuest(event) {
         //aswer udated question ------------------------
         datas[indexOfQueston].answers = tempoAnswers;
         empty();
-        saveData(datas)
-        displayQuest()
+        saveData(datas);
+        displayQuest();
     } else {
         validation();
     }
@@ -170,7 +154,6 @@ function colorNormal() {
 }
 
 function empty() {
-    getScore.value = '0';
     getQuestion.value = '';
     for (let input of ansers) {
         input.value = '';
@@ -179,9 +162,12 @@ function empty() {
         radio.checked = false;
     }
 }
+
+
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
+    let datas = JSON.parse(localStorage.getItem("datas"));
     // CHECK IF ALL INPUT IS VALID
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
 
@@ -209,6 +195,9 @@ function ShowQuestions(event) {
         // add data to main data 
         datas.push(dataQus);
 
+        // ADD DATA TO LOCALSTORAGE
+        saveData(datas);
+        console.log(datas);
         // ASSIGN ALL INPUT TO AN EMPTY
         getQuestion.value = '';
         for (let input of ansers) {
@@ -217,15 +206,25 @@ function ShowQuestions(event) {
         for (let radio of checkRadio) {
             radio.checked = false;
         }
+
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
+
         colorNormal();
-        empty()
+
+        if (!validAnswer()) {
+            for (let value of ansers) {
+                value.style.borderBottom = '1px solid #c0c0c0';
+            }
+        }
+        inputTitle.style.borderBottom = '1px solid #c0c0c0';
+        getQuestion.style.borderBottom = '1px solid #c0c0c0';
 
     } else {
         validation();
     }
 }
+
 
 function validation() {
     window.alert('Please fill all ! Be Careful ! You must click the correct answer');
@@ -248,6 +247,7 @@ function validation() {
                 value.style.borderBottom = '1px solid #c0c0c0';
             }
         }
+
     } else {
         for (let value of ansers) {
             value.style.borderBottom = '1px solid #c0c0c0';
@@ -256,21 +256,15 @@ function validation() {
 }
 
 
-function editOnlyATitle() {
-    containQuest.style.display = "block";
-    let containAllQuizs = document.querySelector('.contain-all-quiz');
-    containAllQuizs.style.display = 'none';
-    forms.style.display = "block";
-    displayQuest();
-
-}
-
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
-    btnAddQuiz.style.display = "none";
-    btnSaveQuiz.style.display = "block";
+    let datas = JSON.parse(localStorage.getItem('datas'));
+
     containQuest.removeChild(containQuest.lastElementChild);
+    // let containQuest = document.createElement('div');
+    // containQuest.className = 'contain-quest';
+    // container.appendChild(containQuest);
     let ul = document.createElement('ul');
     let deleteId = 0;
     containQuest.appendChild(ul);
@@ -313,7 +307,6 @@ function displayQuest() {
         aboutQuestion.appendChild(score);
         aboutQuestion.appendChild(editer);
 
-
         // ANSWER DETAIL 
         let answerDetail = document.createElement("ul");
         answerDetail.className = "answer-detail";
@@ -329,6 +322,7 @@ function displayQuest() {
             radioIconCheck.style.color = "green";
             let radioIconNoCheck = document.createElement("i");
             radioIconNoCheck.className = 'fa fa-circle-o';
+            radioIconNoCheck.style.color = "black";
 
             if (answerIndex == value.correct) {
                 newLi.appendChild(radioIconCheck);
@@ -337,7 +331,7 @@ function displayQuest() {
             }
             let theAnswer = document.createElement("span");
             theAnswer.textContent = item;
-            newLi.appendChild(theAnswer)
+            newLi.appendChild(theAnswer);
             answerIndex += 1;
         }
 
@@ -456,11 +450,12 @@ bodyForm.appendChild(addQuestion);
 // create button for adding question
 let btnAddQuest = document.createElement('button');
 btnAddQuest.id = 'add';
-btnAddQuest.textContent = 'Add question';
+btnAddQuest.textContent = 'Add Question';
 addQuestion.appendChild(btnAddQuest);
 let btn = document.querySelector('#add');
 // add eventlistener to btn create question
 btn.addEventListener("click", ShowQuestions);
+
 
 
 // create div to contain all question
@@ -484,32 +479,26 @@ let scores = 0
 let userChose = [];
 let scoreOfEachQuest = [];
 
-var ID = -1;
-
-function play(event) {
-    btnAddQuiz.style.display = "none";
-    btnSaveQuiz.style.display = "none";
-    let containAllQuizs = document.querySelector('.contain-all-quiz');
-    containAllQuizs.style.display = 'none';
-
+function hideOther() {
     userChose = [];
     scoreOfEachQuest = [];
-    ID = event.target.id;
-    var DATA = JSON.parse(localStorage.getItem('datas'));
-    forms.style.display = "none";
-    header.style.display = "none";
-    containQuest.style.display = "none";
-    computeScore.style.display = "none";
-    disGBanswer.style.display = 'none';
-    banner.style.display = "none";
-    questionNumber = 0
-    disAnswerID = 0;
-    totalScore = 0;
-    scores = 0;
-    let datas = DATA[ID][0];
-    displayQuiz(datas);
+    let datas = JSON.parse(localStorage.getItem("datas"));
+    if (datas.length > 0) {
+        forms.style.display = "none";
+        header.style.display = "none";
+        containQuest.style.display = "none";
+        computeScore.style.display = "none";
+        disGBanswer.style.display = 'none';
+        banner.style.display = "none";
+        questionNumber = 0
+        disAnswerID = 0;
+        totalScore = 0;
+        scores = 0;
+        displayQuiz(datas[0])
+    } else {
+        window.alert("No quiz for now!")
+    }
 }
-
 
 // display one question at a time
 var disAnswerID = 0;
@@ -524,12 +513,10 @@ let isAnswerChose = false;
 let isNotFirst = false;
 
 function displayQuiz(object) {
-
-    let DATA = JSON.parse(localStorage.getItem('datas'));
-    let datas = DATA[ID];
+    let datas = JSON.parse(localStorage.getItem("datas"));
     // check to delete last question that displayed
     if (isNotFirst) {
-        document.querySelector('.display-quiz').remove();
+        container.removeChild(container.lastElementChild);
     }
 
     // main
@@ -547,7 +534,7 @@ function displayQuiz(object) {
     toQuizContainer.appendChild(quizTitle);
 
     let title = document.createElement("span")
-    title.textContent = datas[questionNumber].topic;
+    title.textContent = document.getElementById("title").value;
     quizTitle.appendChild(title);
 
     // amount question complete
@@ -561,7 +548,7 @@ function displayQuiz(object) {
     completeQuestion.appendChild(cancelQuiz);
     let cancelBtn = document.createElement("i");
     cancelBtn.className = "fa fa-home home-button";
-    cancelBtn.addEventListener("click", cancelTheQuiz);
+    cancelBtn.addEventListener("click", cancelTheQuiz)
     cancelQuiz.appendChild(cancelBtn);
 
     // show question number
@@ -579,7 +566,7 @@ function displayQuiz(object) {
 
     let questBlock = document.createElement("div");
     questBlock.className = "show-question";
-    questionAnswerSide.appendChild(questBlock);
+    questionAnswerSide.appendChild(questBlock)
     let disQuestion = document.createElement("span");
     disQuestion.textContent = object.question;
     disQuestion.id = "dis-question";
@@ -603,14 +590,14 @@ function displayQuiz(object) {
     //btn next
     let quizBtnContainer = document.createElement("div");
     quizBtnContainer.className = "quiz-btn-container";
-    toQuizContainer.appendChild(quizBtnContainer);
+    toQuizContainer.appendChild(quizBtnContainer)
     let quizButtonNext = document.createElement("button");
     quizButtonNext.className = "quiz-btn-next";
     quizButtonNext.textContent = "NEXT";
     if (questionNumber + 1 == datas.length) {
         quizButtonNext.textContent = "SUBMIT";
     }
-    quizButtonNext.addEventListener("click", nextQuestion);
+    quizButtonNext.addEventListener("click", nextQuestion)
     quizBtnContainer.appendChild(quizButtonNext);
 
     // delete previous question
@@ -633,11 +620,11 @@ function choseAns(event) {
         }
     }
 }
+
 // next question
 function nextQuestion() {
-    let DATA = JSON.parse(localStorage.getItem('datas'));
-    let datas = DATA[ID];
     userChose.push(selectedAnswer);
+    let datas = JSON.parse(localStorage.getItem("datas"));
     if (isAnswerChose) {
         countScore()
         disAnswerID = 0;
@@ -668,10 +655,10 @@ function cancelTheQuiz() {
     }
 
 }
+
 // count score 
 function countScore() {
-    let DATA = JSON.parse(localStorage.getItem('datas'));
-    let datas = DATA[ID];
+    let datas = JSON.parse(localStorage.getItem("datas"));
     scores += parseInt(datas[questionNumber].score);
     if (selectedAnswer == datas[questionNumber].correct) {
         totalScore += parseInt(datas[questionNumber].score);
@@ -687,7 +674,7 @@ function countScore() {
 //--Remove a question--
 function removeQuestion(event) {
     // get target and button id
-    datas = JSON.parse(localStorage.getItem('datas'));
+    let datas = JSON.parse(localStorage.getItem('datas'));
     let getTarget = event.target;
     let btnId = getTarget.id;
     datas.splice(btnId, 1);
@@ -720,6 +707,7 @@ function displayScore() {
     displayCorrection()
 
 }
+
 // DISPLAY GOOD/BAD ANSWER
 // CREATE DIV TO CONTAIN ALL CORRECTION AND APPEND IT TO CONTAINER
 let containCorrection = document.createElement('div');
@@ -735,10 +723,7 @@ disGBanswer.style.display = 'none';
 
 // CREATE FUNCTION TO DISPLAY ALL CORRECTION
 function displayCorrection() {
-
-    let DATA = JSON.parse(localStorage.getItem('datas'));
-    let datas = DATA[ID];
-
+    let datas = JSON.parse(localStorage.getItem("datas"));
     disGBanswer.style.display = 'block';
     disGBanswer.removeChild(disGBanswer.firstElementChild);
 
@@ -819,14 +804,12 @@ function displayCorrection() {
     let btnPlayAgain = document.createElement("button");
     btnPlayAgain.className = "btn-play-again";
     btnPlayAgain.textContent = "PLAY AGAIN";
-    btnPlayAgain.id = ID;
-    btnPlayAgain.addEventListener("click", play);
+    btnPlayAgain.addEventListener("click", hideOther);
     options.appendChild(btnPlayAgain);
 }
 
 // Home page
 function backHome() {
-    empty();
     header.style.display = "flex";
     disScore.style.display = "none";
     containCorrection.style.display = "none";
@@ -844,111 +827,6 @@ function saveData(data) {
     localStorage.setItem('datas', JSON.stringify(data));
 }
 
-function saveTitle(title) {
-    localStorage.setItem('titles', JSON.stringify(title));
-}
-
-function saveDATA(event) {
-    if (datas.length > 0) {
-        listTs.push(topic.value);
-        saveTitle(listTs)
-        bigDatas.push(datas);
-        saveData(bigDatas)
-        datas = [];
-
-        empty()
-        topic.value = '';
-        let ull = document.querySelector('ul');
-        ull.style.display = 'none';
-        listQuiz();
-    }
-}
-// CREATE LIST
-
-let containAllQuizs = document.createElement('div');
-containAllQuizs.className = 'contain-all-quiz';
-container.appendChild(containAllQuizs);
-containAllQuizs.style.display = 'none';
-
-function listQuiz(event) {
-    btnAddQuiz.style.display = "block";
-    btnSaveQuiz.style.display = "none";
-    if (localStorage.length > 0) {
-        forms.style.display = "none";
-        containQuest.style.display = "none";
-        computeScore.style.display = "none";
-        disGBanswer.style.display = 'none';
-        banners.style.display = "none";
-        disAnswerID = 0;
-        if (localStorage.length > 0) {
-            let listTs = JSON.parse(localStorage.getItem('titles'));
-            let DATAs = JSON.parse(localStorage.getItem('datas'));
-            document.querySelector('.contain-all-quiz').remove();
-
-            let containAllQuizs = document.createElement('div');
-            containAllQuizs.className = 'contain-all-quiz';
-            container.appendChild(containAllQuizs);
-
-            for (let i in listTs) {
-                let questDiv = document.createElement('div');
-                questDiv.className = 'quest-div';
-                questDiv.id = disAnswerID;
-                containAllQuizs.appendChild(questDiv);
-
-                let contentQuest = document.createElement('div');
-                contentQuest.className = 'content-quest';
-                contentQuest.id = disAnswerID;
-                questDiv.appendChild(contentQuest);
-
-                let playQuiz = document.createElement('div');
-                playQuiz.className = 'play-quiz';
-                playQuiz.id = disAnswerID;
-                playQuiz.textContent = 'Play';
-                questDiv.appendChild(playQuiz);
-
-                let containTitle = document.createElement('div');
-                containTitle.className = 'contain-title';
-                contentQuest.appendChild(containTitle);
-
-                let titleQuiz = document.createElement('p');
-                titleQuiz.className = 'title-quiz';
-                titleQuiz.textContent = listTs[i];
-                containTitle.appendChild(titleQuiz);
-
-                let amountOfQuest = document.createElement('span');
-                amountOfQuest.className = 'amount-quest';
-                amountOfQuest.textContent = DATAs[i].length + ' Questions';
-                containTitle.appendChild(amountOfQuest);
-
-                let cIcons = document.createElement('div');
-                cIcons.className = 'contain-icons';
-                contentQuest.appendChild(cIcons);
-
-                let cIcon = document.createElement("span");
-                cIcon.className = "contain-icon";
-                let iEdit = document.createElement("i");
-                iEdit.className = "fa fa-edit icon-edit";
-                let iDelete = document.createElement("i");
-                iDelete.className = "fa fa-trash icon-delete";
-                iEdit.addEventListener("click", editOnlyATitle);
-                cIcon.appendChild(iEdit);
-                cIcon.appendChild(iDelete);
-                cIcons.appendChild(cIcon);
-                oneQuesToDisplay();
-
-                disAnswerID += 1;
-            }
-
-            let allToPlays = document.querySelectorAll('.play-quiz');
-            for (let plays of allToPlays) {
-                plays.addEventListener('click', play)
-            }
-        }
-    } else {
-        alert('No quiz for now!!')
-    }
-}
-
 
 // menu ------------------------------
 function display() {
@@ -962,13 +840,9 @@ function display() {
     computeScore.style.display = 'none';
     disGBanswer.style.display = 'none';
     displayQuest();
-    let containAllQuizs = document.querySelector('.contain-all-quiz');
-    containAllQuizs.style.display = 'none';
 }
 
 let datas = [];
-let bigDatas = [];
-let listTs = [];
 let banners = document.querySelector(".banner");
 forms.style.display = "none";
 containQuest.style.display = "none";
