@@ -869,3 +869,4 @@ let getScore = document.querySelector("#score");
 let getAnswer = document.querySelectorAll(".answer");
 let btnAdd = document.querySelector("#add");
 let topic = document.querySelector('#title');
+saveData(datas);
