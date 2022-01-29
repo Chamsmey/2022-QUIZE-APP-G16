@@ -79,6 +79,7 @@ function editQuest(event) {
     event.preventDefault();
     btn.style.display = "none";
     update.style.display = "block";
+    containQuest.style.display = "none";
     inputRadio = document.querySelectorAll(".answer");
     let getInput = document.querySelectorAll(".inputAnswer");
     if (event.target.className = "fa fa-edit edit") {
@@ -91,7 +92,7 @@ function editQuest(event) {
         questions.value = datas[indexOfQueston].question;
         topic.value =datas[indexOfQueston].topic;
         for (let item of getInput) {
-            console.log(datas[indexOfQueston].answers[item]);
+            console.log(datas[indexOfQueston].answers[index]);
             item.value = datas[indexOfQueston].answers[index];
             index += 1;
         }
@@ -110,14 +111,8 @@ function updateQuest(event) {
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
         btn.style.display = "block";
         update.style.display = "none";
-        let question = document.getElementsByTagName("li");
-        console.log(question);
-        for(let item in question){
-            if (indexOfQueston ==item){
-                question[item].firstElementChild.textContent =getQuestion.value;
-                question[item].firstElementChild.nextElementSibling.textContent ="score :" + getScore.value;
-            }
-        }
+        containQuest.style.display = "block";
+
         datas[indexOfQueston].question=getQuestion.value;
         datas[indexOfQueston].topic = topic.value;
         let indexOfanswer = 0;
@@ -138,6 +133,8 @@ function updateQuest(event) {
         //aswer udated question ------------------------
         datas[indexOfQueston].answers=tempoAnswers;
         empty() ;
+        saveData(datas)
+        displayQuest()
     }else{
         validation();
     }
@@ -151,7 +148,6 @@ function colorNormal() {
     getQuestion.style.borderBottom = '1px solid #c0c0c0';    
 }
 function empty() {
-    topic.value='';
     getQuestion.value = '';
     for (let input of ansers) {
         input.value = '';
