@@ -265,6 +265,11 @@ function displayQuest() {
         for (let value of datas) {
             // CREATE LI TO CONTAIN QUESTIONS
             let li = document.createElement("li");
+            li.className = "detail-card";
+
+            let aboutQuestion = document.createElement("div");
+            aboutQuestion.className = "about-question";
+            li.appendChild(aboutQuestion);
     
             // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
             let question = document.createElement("span");
@@ -292,10 +297,39 @@ function displayQuest() {
             // APPEND CONTAIN TO LI AND APPEND LI TO UL
             editer.appendChild(i);
             editer.appendChild(deletes);
-            li.appendChild(question);
-            li.appendChild(score);
-            li.appendChild(editer);
-            let qusCompleted = document.querySelector("ul");
+            aboutQuestion.appendChild(question);
+            aboutQuestion.appendChild(score);
+            aboutQuestion.appendChild(editer);
+
+
+            // ANSWER DETAIL 
+            let answerDetail = document.createElement("ul");
+            answerDetail.className = "answer-detail";
+            li.appendChild(answerDetail);
+            let answerIndex = 0;
+            for (let item of value.answers) {
+                let newLi = document.createElement('li');
+                newLi.className = 'li-answer';
+                answerDetail.appendChild(newLi);
+                
+                let radioIconCheck = document.createElement("i");
+                radioIconCheck.className = 'fa fa-dot-circle-o';
+                radioIconCheck.style.color = "green";
+                let radioIconNoCheck = document.createElement("i");
+                radioIconNoCheck.className = 'fa fa-circle-o';
+                    
+                if (answerIndex == value.correct) {
+                    newLi.appendChild(radioIconCheck);
+                } else {
+                    newLi.appendChild(radioIconNoCheck);
+                }
+                let theAnswer = document.createElement("span");
+                theAnswer.textContent = item;
+                newLi.appendChild(theAnswer)
+                answerIndex += 1;
+            }
+
+            let qusCompleted = document.querySelectorAll("ul")[0];
             qusCompleted.appendChild(li);
     
         }
