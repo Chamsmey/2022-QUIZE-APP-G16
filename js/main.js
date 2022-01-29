@@ -170,6 +170,7 @@ function colorNormal() {
 }
 
 function empty() {
+    getScore.value = '0';
     getQuestion.value = '';
     for (let input of ansers) {
         input.value = '';
@@ -208,9 +209,6 @@ function ShowQuestions(event) {
         // add data to main data 
         datas.push(dataQus);
 
-        // ADD DATA TO LOCALSTORAGE
-        saveData(datas);
-
         // ASSIGN ALL INPUT TO AN EMPTY
         getQuestion.value = '';
         for (let input of ansers) {
@@ -221,8 +219,8 @@ function ShowQuestions(event) {
         }
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
-
         colorNormal();
+        empty()
 
     } else {
         validation();
@@ -272,85 +270,80 @@ function displayQuest() {
     disGBanswer.style.display = 'none';
     btnAddQuiz.style.display = "none";
     btnSaveQuiz.style.display = "block";
+    containQuest.removeChild(containQuest.lastElementChild);
+    let ul = document.createElement('ul');
+    let deleteId = 0;
+    containQuest.appendChild(ul);
+    for (let value of datas) {
+        // CREATE LI TO CONTAIN QUESTIONS
+        let li = document.createElement("li");
+        li.className = "detail-card";
+
+        let aboutQuestion = document.createElement("div");
+        aboutQuestion.className = "about-question";
+        li.appendChild(aboutQuestion);
+
+        // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
+        let question = document.createElement("span");
+        question.className = "contant-qus";
+        question.textContent = value.question;
+
+        // CREATE SPAN TO CONTAIN SCORE
+        let score = document.createElement("span");
+        score.className = "score";
+        score.textContent = "score :" + value.score;
+
+        // create btn to edit and delete
+        let editer = document.createElement("span");
+        editer.className = "editer";
+        let i = document.createElement("i");
+        i.className = "fa fa-edit edit";
+        let deletes = document.createElement("i");
+        deletes.className = "fa fa-trash delete";
+        deletes.id = deleteId;
+        i.id = deleteId;
+        deleteId += 1;
+        deletes.addEventListener("click", removeQuestion);
+        i.addEventListener("click", editQuest);
+
+        // APPEND CONTAIN TO LI AND APPEND LI TO UL
+        editer.appendChild(i);
+        editer.appendChild(deletes);
+        aboutQuestion.appendChild(question);
+        aboutQuestion.appendChild(score);
+        aboutQuestion.appendChild(editer);
 
 
-    if (localStorage.length > 0) {
-        containQuest.removeChild(containQuest.lastElementChild);
-        let ul = document.createElement('ul');
+        // ANSWER DETAIL 
+        let answerDetail = document.createElement("ul");
+        answerDetail.className = "answer-detail";
+        li.appendChild(answerDetail);
+        let answerIndex = 0;
+        for (let item of value.answers) {
+            let newLi = document.createElement('li');
+            newLi.className = 'li-answer';
+            answerDetail.appendChild(newLi);
 
-        let deleteId = 0;
-        containQuest.appendChild(ul);
-        for (let value of datas) {
-            // CREATE LI TO CONTAIN QUESTIONS
-            let li = document.createElement("li");
-            li.className = "detail-card";
+            let radioIconCheck = document.createElement("i");
+            radioIconCheck.className = 'fa fa-dot-circle-o';
+            radioIconCheck.style.color = "green";
+            let radioIconNoCheck = document.createElement("i");
+            radioIconNoCheck.className = 'fa fa-circle-o';
 
-            let aboutQuestion = document.createElement("div");
-            aboutQuestion.className = "about-question";
-            li.appendChild(aboutQuestion);
-
-            // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
-            let question = document.createElement("span");
-            question.className = "contant-qus";
-            question.textContent = value.question;
-
-            // CREATE SPAN TO CONTAIN SCORE
-            let score = document.createElement("span");
-            score.className = "score";
-            score.textContent = "score :" + value.score;
-
-            // create btn to edit and delete
-            let editer = document.createElement("span");
-            editer.className = "editer";
-            let i = document.createElement("i");
-            i.className = "fa fa-edit edit";
-            let deletes = document.createElement("i");
-            deletes.className = "fa fa-trash delete";
-            deletes.id = deleteId;
-            i.id = deleteId;
-            deleteId += 1;
-            deletes.addEventListener("click", removeQuestion);
-            i.addEventListener("click", editQuest);
-
-            // APPEND CONTAIN TO LI AND APPEND LI TO UL
-            editer.appendChild(i);
-            editer.appendChild(deletes);
-            aboutQuestion.appendChild(question);
-            aboutQuestion.appendChild(score);
-            aboutQuestion.appendChild(editer);
-
-
-            // ANSWER DETAIL 
-            let answerDetail = document.createElement("ul");
-            answerDetail.className = "answer-detail";
-            li.appendChild(answerDetail);
-            let answerIndex = 0;
-            for (let item of value.answers) {
-                let newLi = document.createElement('li');
-                newLi.className = 'li-answer';
-                answerDetail.appendChild(newLi);
-
-                let radioIconCheck = document.createElement("i");
-                radioIconCheck.className = 'fa fa-dot-circle-o';
-                radioIconCheck.style.color = "green";
-                let radioIconNoCheck = document.createElement("i");
-                radioIconNoCheck.className = 'fa fa-circle-o';
-
-                if (answerIndex == value.correct) {
-                    newLi.appendChild(radioIconCheck);
-                } else {
-                    newLi.appendChild(radioIconNoCheck);
-                }
-                let theAnswer = document.createElement("span");
-                theAnswer.textContent = item;
-                newLi.appendChild(theAnswer)
-                answerIndex += 1;
+            if (answerIndex == value.correct) {
+                newLi.appendChild(radioIconCheck);
+            } else {
+                newLi.appendChild(radioIconNoCheck);
             }
-
-            let qusCompleted = document.querySelectorAll("ul")[0];
-            qusCompleted.appendChild(li);
-
+            let theAnswer = document.createElement("span");
+            theAnswer.textContent = item;
+            newLi.appendChild(theAnswer)
+            answerIndex += 1;
         }
+
+        let qusCompleted = document.querySelectorAll("ul")[0];
+        qusCompleted.appendChild(li);
+
     }
 }
 
