@@ -513,7 +513,6 @@ function displayQuiz(object) {
     let DATA = JSON.parse(localStorage.getItem('datas'));
     let datas = DATA[ID];
     // check to delete last question that displayed
-    datas = JSON.parse(localStorage.getItem("datas"));
     if (isNotFirst) {
         document.querySelector('.display-quiz').remove();
     }
