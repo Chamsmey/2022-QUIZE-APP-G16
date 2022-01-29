@@ -3,7 +3,6 @@
 //CREATE HEADER
 let header = document.createElement('header');
 document.body.appendChild(header);
-
 // button home and logo
 let homeAndLogo = document.createElement("div");
 homeAndLogo.className = "home-and-logo";
@@ -52,12 +51,23 @@ btnQuiz.addEventListener("click", listQuiz)
 menu.appendChild(btnQuiz);
 
 // CREATE BUTTON CREATE QUIZ
+let btnSaveAndAddQuiz = document.createElement("div");
+btnSaveAndAddQuiz.className = "save-and-add-quiz";
+document.body.appendChild(btnSaveAndAddQuiz);
+let btnAddQuiz = document.createElement("button");
+btnAddQuiz.textContent = "Add Quiz";
+btnAddQuiz.className = "btn-add-quiz";
+btnSaveAndAddQuiz.appendChild(btnAddQuiz);
 let btnSaveQuiz = document.createElement("button");
 btnSaveQuiz.className = "btn-save-quiz";
 btnSaveQuiz.textContent = "SAVE QUIZ";
+btnSaveAndAddQuiz.appendChild(btnSaveQuiz);
 btnSaveQuiz.addEventListener("click", saveDATA);
-document.body.appendChild(btnSaveQuiz);
+btnAddQuiz.addEventListener("click", display);
 
+
+btnAddQuiz.style.display = "none";
+btnSaveQuiz.style.display = "none";
 // CREATE FUNCTION TO CHECK ALL ANSWERS ARE HAVE BEEN INPUT OR NOT
 let ansers = document.getElementsByName('inputAnswer');
 
@@ -169,8 +179,6 @@ function empty() {
         radio.checked = false;
     }
 }
-
-
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
@@ -209,7 +217,6 @@ function ShowQuestions(event) {
         for (let radio of checkRadio) {
             radio.checked = false;
         }
-
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
         colorNormal() ;
@@ -219,7 +226,6 @@ function ShowQuestions(event) {
         validation();
     }
 }
-
 
 function validation() {
     window.alert('Please fill all ! Be Careful ! You must click the correct answer');
@@ -242,7 +248,6 @@ function validation() {
                 value.style.borderBottom = '1px solid #c0c0c0';
             }
         }
-
     } else {
         for (let value of ansers) {
             value.style.borderBottom = '1px solid #c0c0c0';
@@ -254,6 +259,8 @@ function validation() {
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
+    btnAddQuiz.style.display = "none";
+    btnSaveQuiz.style.display = "block";
     containQuest.removeChild(containQuest.lastElementChild);
     let  ul = document.createElement('ul');
     let  deleteId = 0;
@@ -469,14 +476,17 @@ let userChose = [];
 let scoreOfEachQuest = [];
 
 var ID = -1;
+
 function play(event) {
+    btnAddQuiz.style.display = "none";
+    btnSaveQuiz.style.display = "none";
     let containAllQuizs = document.querySelector('.contain-all-quiz');
     containAllQuizs.style.display = 'none';
 
     userChose = [];
     scoreOfEachQuest = [];
     ID = event.target.id;
-    var DATA = JSON.parse(localStorage.getItem('datas')); 
+    var DATA = JSON.parse(localStorage.getItem('datas'));
     forms.style.display = "none";
     header.style.display = "none";
     containQuest.style.display = "none";
@@ -616,7 +626,7 @@ function choseAns(event) {
 }
 // next question
 function nextQuestion() {
-    let DATA = JSON.parse(localStorage.getItem('datas')); 
+    let DATA = JSON.parse(localStorage.getItem('datas'));
     let datas = DATA[ID];
     userChose.push(selectedAnswer);
     if (isAnswerChose) {
@@ -651,7 +661,7 @@ function cancelTheQuiz() {
 }
 // count score 
 function countScore() {
-    let DATA = JSON.parse(localStorage.getItem('datas')); 
+    let DATA = JSON.parse(localStorage.getItem('datas'));
     let datas = DATA[ID];
     scores += parseInt(datas[questionNumber].score);
     if (selectedAnswer == datas[questionNumber].correct) {
@@ -717,7 +727,7 @@ disGBanswer.style.display = 'none';
 // CREATE FUNCTION TO DISPLAY ALL CORRECTION
 function displayCorrection() {
 
-    let DATA = JSON.parse(localStorage.getItem('datas')); 
+    let DATA = JSON.parse(localStorage.getItem('datas'));
     let datas = DATA[ID];
 
     disGBanswer.style.display = 'block';
@@ -807,6 +817,7 @@ function displayCorrection() {
 
 // Home page
 function backHome() {
+    empty();
     header.style.display = "flex";
     disScore.style.display = "none";
     containCorrection.style.display = "none";
@@ -851,57 +862,59 @@ container.appendChild(containAllQuizs);
 containAllQuizs.style.display = 'none';
 
 function listQuiz(event) {
-    if (localStorage.length>0) {
+    btnAddQuiz.style.display = "block";
+    btnSaveQuiz.style.display = "none";
+    if (localStorage.length > 0) {
         forms.style.display = "none";
         containQuest.style.display = "none";
         computeScore.style.display = "none";
         disGBanswer.style.display = 'none';
-        banners.style.display= "none";
+        banners.style.display = "none";
         disAnswerID = 0;
         if (localStorage.length > 0) {
-            let listTs = JSON.parse(localStorage.getItem('titles'));       
-            let DATAs = JSON.parse(localStorage.getItem('datas'));       
+            let listTs = JSON.parse(localStorage.getItem('titles'));
+            let DATAs = JSON.parse(localStorage.getItem('datas'));
             document.querySelector('.contain-all-quiz').remove();
-    
+
             let containAllQuizs = document.createElement('div');
             containAllQuizs.className = 'contain-all-quiz';
             container.appendChild(containAllQuizs);
-        
+
             for (let i in listTs) {
                 let questDiv = document.createElement('div');
                 questDiv.className = 'quest-div';
                 questDiv.id = disAnswerID;
                 containAllQuizs.appendChild(questDiv);
-    
+
                 let contentQuest = document.createElement('div');
                 contentQuest.className = 'content-quest';
                 contentQuest.id = disAnswerID;
                 questDiv.appendChild(contentQuest);
-    
+
                 let playQuiz = document.createElement('div');
                 playQuiz.className = 'play-quiz';
                 playQuiz.id = disAnswerID;
                 playQuiz.textContent = 'Play';
                 questDiv.appendChild(playQuiz);
-                
+
                 let containTitle = document.createElement('div');
                 containTitle.className = 'contain-title';
                 contentQuest.appendChild(containTitle);
-                
+
                 let titleQuiz = document.createElement('p');
                 titleQuiz.className = 'title-quiz';
                 titleQuiz.textContent = listTs[i];
                 containTitle.appendChild(titleQuiz);
-                
+
                 let amountOfQuest = document.createElement('span');
                 amountOfQuest.className = 'amount-quest';
                 amountOfQuest.textContent = DATAs[i].length + ' Questions';
                 containTitle.appendChild(amountOfQuest);
-                
+
                 let cIcons = document.createElement('div');
                 cIcons.className = 'contain-icons';
                 contentQuest.appendChild(cIcons);
-                
+
                 let cIcon = document.createElement("span");
                 cIcon.className = "contain-icon";
                 let iEdit = document.createElement("i");
@@ -912,16 +925,16 @@ function listQuiz(event) {
                 cIcon.appendChild(iDelete);
                 cIcons.appendChild(cIcon);
                 oneQuesToDisplay();
-    
+
                 disAnswerID += 1;
             }
-    
+
             let allToPlays = document.querySelectorAll('.play-quiz');
             for (let plays of allToPlays) {
                 plays.addEventListener('click', play)
             }
         }
-    }else {
+    } else {
         alert('No quiz for now!!')
     }
 }
@@ -941,9 +954,9 @@ function display() {
     displayQuest();
     let containAllQuizs = document.querySelector('.contain-all-quiz');
     containAllQuizs.style.display = 'none';
-}    
+}
 
-let datas =[];
+let datas = [];
 let bigDatas = [];
 let listTs = [];
 let banners = document.querySelector(".banner");
