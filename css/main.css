@@ -533,3 +533,83 @@ h3 {
     margin-left: 20px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
+
+
+.save-quiz-contain {
+    width: 96%;
+    text-align: right;
+    position: fixed;
+    bottom: 38px;
+}
+.btn-save-quiz {
+    position: fixed;
+    bottom: 38px;
+    right: 60px;
+    padding: 12px 40px 12px 40px;
+    border: none;
+    background-color: #1d2570;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.btn-save-quiz:hover {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+
+.contain-all-quiz {
+    width: 60%;
+    margin: auto;
+    margin-top: 40px;
+}
+.content-quest {
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    border-radius: 10px 0 0 10px;
+}
+.quest-div {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+}
+.contain-icons {
+    font-size: 40px;
+}
+
+.title-quiz {
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: capitalize;
+    
+}
+.icon-edit {
+    margin-right: 5px;
+}
+.play-quiz {
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 10px 10px 0;
+    color: #fff;
+}
+.play-quiz:hover {
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    cursor: pointer;
+}
