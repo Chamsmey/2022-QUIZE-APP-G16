@@ -79,7 +79,6 @@ function validRadio() {
 
 function editQuest(event) {
     event.preventDefault();
-    let datas = JSON.parse(localStorage.getItem("datas"));
     btn.style.display = "none";
     update.style.display = "block";
     containQuest.style.display = "none";
@@ -95,6 +94,7 @@ function editQuest(event) {
         questions.value = datas[indexOfQueston].question;
         topic.value = datas[indexOfQueston].topic;
         for (let item of getInput) {
+            console.log(datas[indexOfQueston].answers[index]);
             item.value = datas[indexOfQueston].answers[index];
             index += 1;
         }
@@ -111,7 +111,6 @@ let indexOfQueston = 0;
 
 function updateQuest(event) {
     event.preventDefault();
-    let datas = JSON.parse(localStorage.getItem("datas"));
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
         btn.style.display = "block";
         update.style.display = "none";
@@ -137,8 +136,8 @@ function updateQuest(event) {
         //aswer udated question ------------------------
         datas[indexOfQueston].answers = tempoAnswers;
         empty();
-        saveData(datas);
-        displayQuest();
+        saveData(datas)
+        displayQuest()
     } else {
         validation();
     }
@@ -167,7 +166,6 @@ function empty() {
 // CREATE FUNCTION TO SHOW THE QUESTIONS
 function ShowQuestions(event) {
     event.preventDefault();
-    let datas = JSON.parse(localStorage.getItem("datas"));
     // CHECK IF ALL INPUT IS VALID
     if (getQuestion.value !== '' && validAnswer() && validRadio() && topic.value !== '') {
 
@@ -197,28 +195,14 @@ function ShowQuestions(event) {
 
         // ADD DATA TO LOCALSTORAGE
         saveData(datas);
-        console.log(datas);
+
         // ASSIGN ALL INPUT TO AN EMPTY
-        getQuestion.value = '';
-        for (let input of ansers) {
-            input.value = '';
-        }
-        for (let radio of checkRadio) {
-            radio.checked = false;
-        }
+        empty();
 
         // CALL FUNCTION TO DISPLAY QUESTION
         displayQuest();
 
         colorNormal();
-
-        if (!validAnswer()) {
-            for (let value of ansers) {
-                value.style.borderBottom = '1px solid #c0c0c0';
-            }
-        }
-        inputTitle.style.borderBottom = '1px solid #c0c0c0';
-        getQuestion.style.borderBottom = '1px solid #c0c0c0';
 
     } else {
         validation();
@@ -259,85 +243,83 @@ function validation() {
 function displayQuest() {
     computeScore.style.display = "none";
     disGBanswer.style.display = 'none';
-    let datas = JSON.parse(localStorage.getItem('datas'));
+    if (localStorage.length > 0) {
+        containQuest.removeChild(containQuest.lastElementChild);
+        datas = JSON.parse(localStorage.getItem('datas'));
+        let ul = document.createElement('ul');
+        let deleteId = 0;
+        containQuest.appendChild(ul);
+        for (let value of datas) {
+            // CREATE LI TO CONTAIN QUESTIONS
+            let li = document.createElement("li");
+            li.className = "detail-card";
 
-    containQuest.removeChild(containQuest.lastElementChild);
-    // let containQuest = document.createElement('div');
-    // containQuest.className = 'contain-quest';
-    // container.appendChild(containQuest);
-    let ul = document.createElement('ul');
-    let deleteId = 0;
-    containQuest.appendChild(ul);
-    for (let value of datas) {
-        // CREATE LI TO CONTAIN QUESTIONS
-        let li = document.createElement("li");
-        li.className = "detail-card";
+            let aboutQuestion = document.createElement("div");
+            aboutQuestion.className = "about-question";
+            li.appendChild(aboutQuestion);
 
-        let aboutQuestion = document.createElement("div");
-        aboutQuestion.className = "about-question";
-        li.appendChild(aboutQuestion);
+            // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
+            let question = document.createElement("span");
+            question.className = "contant-qus";
+            question.textContent = value.question;
 
-        // CREATE SPAN CLASSNAME contant-qus TO CONTAIN QUESTION
-        let question = document.createElement("span");
-        question.className = "contant-qus";
-        question.textContent = value.question;
+            // CREATE SPAN TO CONTAIN SCORE
+            let score = document.createElement("span");
+            score.className = "score";
+            score.textContent = "score :" + value.score;
 
-        // CREATE SPAN TO CONTAIN SCORE
-        let score = document.createElement("span");
-        score.className = "score";
-        score.textContent = "score :" + value.score;
+            // create btn to edit and delete
+            let editer = document.createElement("span");
+            editer.className = "editer";
+            let i = document.createElement("i");
+            i.className = "fa fa-edit edit";
+            let deletes = document.createElement("i");
+            deletes.className = "fa fa-trash delete";
+            deletes.id = deleteId;
+            i.id = deleteId;
+            deleteId += 1;
+            deletes.addEventListener("click", removeQuestion);
+            i.addEventListener("click", editQuest);
 
-        // create btn to edit and delete
-        let editer = document.createElement("span");
-        editer.className = "editer";
-        let i = document.createElement("i");
-        i.className = "fa fa-edit edit";
-        let deletes = document.createElement("i");
-        deletes.className = "fa fa-trash delete";
-        deletes.id = deleteId;
-        i.id = deleteId;
-        deleteId += 1;
-        deletes.addEventListener("click", removeQuestion);
-        i.addEventListener("click", editQuest);
+            // APPEND CONTAIN TO LI AND APPEND LI TO UL
+            editer.appendChild(i);
+            editer.appendChild(deletes);
+            aboutQuestion.appendChild(question);
+            aboutQuestion.appendChild(score);
+            aboutQuestion.appendChild(editer);
 
-        // APPEND CONTAIN TO LI AND APPEND LI TO UL
-        editer.appendChild(i);
-        editer.appendChild(deletes);
-        aboutQuestion.appendChild(question);
-        aboutQuestion.appendChild(score);
-        aboutQuestion.appendChild(editer);
 
-        // ANSWER DETAIL 
-        let answerDetail = document.createElement("ul");
-        answerDetail.className = "answer-detail";
-        li.appendChild(answerDetail);
-        let answerIndex = 0;
-        for (let item of value.answers) {
-            let newLi = document.createElement('li');
-            newLi.className = 'li-answer';
-            answerDetail.appendChild(newLi);
+            // ANSWER DETAIL 
+            let answerDetail = document.createElement("ul");
+            answerDetail.className = "answer-detail";
+            li.appendChild(answerDetail);
+            let answerIndex = 0;
+            for (let item of value.answers) {
+                let newLi = document.createElement('li');
+                newLi.className = 'li-answer';
+                answerDetail.appendChild(newLi);
 
-            let radioIconCheck = document.createElement("i");
-            radioIconCheck.className = 'fa fa-dot-circle-o';
-            radioIconCheck.style.color = "green";
-            let radioIconNoCheck = document.createElement("i");
-            radioIconNoCheck.className = 'fa fa-circle-o';
-            radioIconNoCheck.style.color = "black";
+                let radioIconCheck = document.createElement("i");
+                radioIconCheck.className = 'fa fa-dot-circle-o';
+                radioIconCheck.style.color = "green";
+                let radioIconNoCheck = document.createElement("i");
+                radioIconNoCheck.className = 'fa fa-circle-o';
 
-            if (answerIndex == value.correct) {
-                newLi.appendChild(radioIconCheck);
-            } else {
-                newLi.appendChild(radioIconNoCheck);
+                if (answerIndex == value.correct) {
+                    newLi.appendChild(radioIconCheck);
+                } else {
+                    newLi.appendChild(radioIconNoCheck);
+                }
+                let theAnswer = document.createElement("span");
+                theAnswer.textContent = item;
+                newLi.appendChild(theAnswer)
+                answerIndex += 1;
             }
-            let theAnswer = document.createElement("span");
-            theAnswer.textContent = item;
-            newLi.appendChild(theAnswer);
-            answerIndex += 1;
+
+            let qusCompleted = document.querySelectorAll("ul")[0];
+            qusCompleted.appendChild(li);
+
         }
-
-        let qusCompleted = document.querySelectorAll("ul")[0];
-        qusCompleted.appendChild(li);
-
     }
 }
 
@@ -450,12 +432,11 @@ bodyForm.appendChild(addQuestion);
 // create button for adding question
 let btnAddQuest = document.createElement('button');
 btnAddQuest.id = 'add';
-btnAddQuest.textContent = 'Add Question';
+btnAddQuest.textContent = 'Add question';
 addQuestion.appendChild(btnAddQuest);
 let btn = document.querySelector('#add');
 // add eventlistener to btn create question
 btn.addEventListener("click", ShowQuestions);
-
 
 
 // create div to contain all question
@@ -480,9 +461,9 @@ let userChose = [];
 let scoreOfEachQuest = [];
 
 function hideOther() {
+    datas = JSON.parse(localStorage.getItem("datas"));
     userChose = [];
     scoreOfEachQuest = [];
-    let datas = JSON.parse(localStorage.getItem("datas"));
     if (datas.length > 0) {
         forms.style.display = "none";
         header.style.display = "none";
@@ -499,7 +480,6 @@ function hideOther() {
         window.alert("No quiz for now!")
     }
 }
-
 // display one question at a time
 var disAnswerID = 0;
 
@@ -513,8 +493,8 @@ let isAnswerChose = false;
 let isNotFirst = false;
 
 function displayQuiz(object) {
-    let datas = JSON.parse(localStorage.getItem("datas"));
     // check to delete last question that displayed
+    datas = JSON.parse(localStorage.getItem("datas"));
     if (isNotFirst) {
         container.removeChild(container.lastElementChild);
     }
@@ -534,7 +514,7 @@ function displayQuiz(object) {
     toQuizContainer.appendChild(quizTitle);
 
     let title = document.createElement("span")
-    title.textContent = document.getElementById("title").value;
+    title.textContent = datas[questionNumber].topic;
     quizTitle.appendChild(title);
 
     // amount question complete
@@ -548,7 +528,7 @@ function displayQuiz(object) {
     completeQuestion.appendChild(cancelQuiz);
     let cancelBtn = document.createElement("i");
     cancelBtn.className = "fa fa-home home-button";
-    cancelBtn.addEventListener("click", cancelTheQuiz)
+    cancelBtn.addEventListener("click", cancelTheQuiz);
     cancelQuiz.appendChild(cancelBtn);
 
     // show question number
@@ -566,7 +546,7 @@ function displayQuiz(object) {
 
     let questBlock = document.createElement("div");
     questBlock.className = "show-question";
-    questionAnswerSide.appendChild(questBlock)
+    questionAnswerSide.appendChild(questBlock);
     let disQuestion = document.createElement("span");
     disQuestion.textContent = object.question;
     disQuestion.id = "dis-question";
@@ -590,14 +570,14 @@ function displayQuiz(object) {
     //btn next
     let quizBtnContainer = document.createElement("div");
     quizBtnContainer.className = "quiz-btn-container";
-    toQuizContainer.appendChild(quizBtnContainer)
+    toQuizContainer.appendChild(quizBtnContainer);
     let quizButtonNext = document.createElement("button");
     quizButtonNext.className = "quiz-btn-next";
     quizButtonNext.textContent = "NEXT";
     if (questionNumber + 1 == datas.length) {
         quizButtonNext.textContent = "SUBMIT";
     }
-    quizButtonNext.addEventListener("click", nextQuestion)
+    quizButtonNext.addEventListener("click", nextQuestion);
     quizBtnContainer.appendChild(quizButtonNext);
 
     // delete previous question
@@ -620,11 +600,9 @@ function choseAns(event) {
         }
     }
 }
-
 // next question
 function nextQuestion() {
     userChose.push(selectedAnswer);
-    let datas = JSON.parse(localStorage.getItem("datas"));
     if (isAnswerChose) {
         countScore()
         disAnswerID = 0;
@@ -655,10 +633,8 @@ function cancelTheQuiz() {
     }
 
 }
-
 // count score 
 function countScore() {
-    let datas = JSON.parse(localStorage.getItem("datas"));
     scores += parseInt(datas[questionNumber].score);
     if (selectedAnswer == datas[questionNumber].correct) {
         totalScore += parseInt(datas[questionNumber].score);
@@ -674,7 +650,7 @@ function countScore() {
 //--Remove a question--
 function removeQuestion(event) {
     // get target and button id
-    let datas = JSON.parse(localStorage.getItem('datas'));
+    datas = JSON.parse(localStorage.getItem('datas'));
     let getTarget = event.target;
     let btnId = getTarget.id;
     datas.splice(btnId, 1);
@@ -707,7 +683,6 @@ function displayScore() {
     displayCorrection()
 
 }
-
 // DISPLAY GOOD/BAD ANSWER
 // CREATE DIV TO CONTAIN ALL CORRECTION AND APPEND IT TO CONTAINER
 let containCorrection = document.createElement('div');
@@ -723,7 +698,6 @@ disGBanswer.style.display = 'none';
 
 // CREATE FUNCTION TO DISPLAY ALL CORRECTION
 function displayCorrection() {
-    let datas = JSON.parse(localStorage.getItem("datas"));
     disGBanswer.style.display = 'block';
     disGBanswer.removeChild(disGBanswer.firstElementChild);
 
@@ -810,6 +784,7 @@ function displayCorrection() {
 
 // Home page
 function backHome() {
+    empty()
     header.style.display = "flex";
     disScore.style.display = "none";
     containCorrection.style.display = "none";
@@ -869,4 +844,3 @@ let getScore = document.querySelector("#score");
 let getAnswer = document.querySelectorAll(".answer");
 let btnAdd = document.querySelector("#add");
 let topic = document.querySelector('#title');
-saveData(datas);

@@ -4,15 +4,12 @@
     font-family: sans-serif;
 }
 
-body {
-    background: #DA22FF;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #9733EE, #DA22FF);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+body{
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 }
-
 
 /* Navbar-------------------------------- */
 
@@ -37,12 +34,10 @@ header {
 .contain-home {
     font-size: xx-large;
 }
-
 .home-button {
     color: white;
     cursor: pointer;
 }
-
 .home-button:hover {
     color: rgb(240, 240, 240);
 }
@@ -100,7 +95,6 @@ header .menu {
     margin: auto;
 }
 
-
 /* background  */
 
 .banner {
@@ -135,12 +129,9 @@ header .menu {
     font-weight: bold;
     color: white;
     border: none;
-    background: #DA22FF;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #9733EE, #DA22FF);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     cursor: pointer;
 }
@@ -149,8 +140,6 @@ header .menu {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 32px;
 }
-
-
 /* question form ---------------------- */
 
 .header-form {
@@ -163,12 +152,9 @@ header .menu {
 h2 {
     border-radius: 10px 10px 0 0;
     color: #fff;
-    background: #DA22FF;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #9733EE, #DA22FF);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 20px;
 }
 
@@ -182,11 +168,9 @@ h2 {
     background: rgba(255, 255, 255, 0);
     border-bottom: 1px solid rgb(192, 192, 192);
 }
-
 #title:focus {
     border-bottom: 1px solid #DA22FF;
 }
-
 .define {
     display: flex;
     justify-content: space-between;
@@ -196,12 +180,11 @@ h2 {
     width: 30px;
 }
 
-.label-answer {
+.label-answer{
     display: flex;
     justify-content: space-between;
 }
-
-.label-answer #score {
+.label-answer #score{
     width: 30px;
     outline: none;
 }
@@ -212,7 +195,7 @@ h2 {
     background: rgb(255, 255, 255);
     padding: 20px;
     box-sizing: border-box;
-    border-left: 8px solid #DA22FF;
+    border-top: 8px solid #DA22FF;
     border-radius: 10px;
     color: #1d2570;
     font-size: 15px;
@@ -229,11 +212,9 @@ h2 {
     margin: 10px 0;
     border-bottom: 1px solid rgb(192, 192, 192);
 }
-
 input[name="question"] {
     background-color: rgba(255, 255, 255, 0);
 }
-
 #question-input:focus {
     border-bottom: 1px solid #DA22FF;
 }
@@ -249,7 +230,6 @@ input[name="inputAnswer"] {
     background-color: rgba(255, 255, 255, 0);
     border-bottom: 1px solid rgb(192, 192, 192);
 }
-
 input[name="inputAnswer"]:focus {
     border-bottom: 1px solid #DA22FF;
 }
@@ -262,8 +242,7 @@ input[name="inputAnswer"]:focus {
     justify-content: flex-end;
 }
 
-#add,
-#edits {
+#add,#edits {
     border: none;
     padding: 8px 30px;
     border-radius: 8px;
@@ -272,7 +251,6 @@ input[name="inputAnswer"]:focus {
     cursor: pointer;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-
 #add:hover {
     background-color: #852ed1;
 }
@@ -299,7 +277,7 @@ ul {
     margin-top: 10px;
     display: flex;
     font-size: 15px;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     background: white;
     border-radius: 5px 5px 0 0;
@@ -325,13 +303,11 @@ ul {
     padding: 7px 0 15px 0;
     font-size: 15px;
 }
-
 .li-answer {
     margin: auto;
     padding: 5px 7px 5px 7px;
     width: 90%;
 }
-
 .li-answer span {
     margin-left: 10px;
 }
@@ -348,16 +324,14 @@ ul {
     width: 10%;
     display: flex;
     justify-content: space-evenly;
-    font-size: 18px;
     cursor: pointer;
+    font-size: 18px
 }
-
 .delete:hover {
-    color: #9733EE;
+    color: #DA22FF;
 }
-
 .edit:hover {
-    color: #9733EE;
+    color: #DA22FF;
 }
 
 h3 {
@@ -371,12 +345,10 @@ h3 {
 
 
 /* display quiz */
-
 .display-quiz {
     width: 100%;
     margin: auto;
 }
-
 .dis-quiz-title {
     margin: auto;
     width: 100%;
@@ -387,26 +359,13 @@ h3 {
     background-color: #9733EE;
     box-shadow: 0px 2px 5px rgba(14, 30, 37, 0.32);
 }
-
-.dis-quiz-title .contain-home {
-    width: 5%;
-    margin-left: 20px;
-}
-
-.empty-ele {
-    width: 5%;
-}
-
 .dis-quiz-title span {
     color: white;
     font-size: 30px;
     font-weight: bolder;
     margin-bottom: 5px;
 }
-
-
 /* question and answer */
-
 .question-answer-block {
     margin: auto;
     width: 80%;
@@ -415,17 +374,13 @@ h3 {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background: #DA22FF;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #9733EE, #DA22FF);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     border-radius: 20px;
     margin-top: 10px;
 }
-
 .show-question {
     margin: auto;
     width: 90%;
@@ -433,13 +388,11 @@ h3 {
     justify-content: center;
     align-items: center;
 }
-
 #dis-question {
     font-weight: bolder;
     color: white;
     font-size: 27px;
 }
-
 .bottom-side {
     margin: auto;
     display: grid;
@@ -448,7 +401,6 @@ h3 {
     width: 90%;
     box-sizing: border-box;
 }
-
 .anAnswer {
     cursor: pointer;
     box-sizing: border-box;
@@ -473,7 +425,6 @@ h3 {
     margin: auto;
     text-align: end;
 }
-
 .quiz-btn-next {
     padding: 13px 45px 13px 45px;
     border: none;
@@ -486,11 +437,9 @@ h3 {
     border-radius: 5px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-
 .quiz-btn-next:hover {
     background-color: #171e5c;
 }
-
 .complete-question {
     margin: auto;
     width: 95%;
@@ -499,16 +448,13 @@ h3 {
     align-items: center;
     padding: 10px 0 10px 0;
 }
-
 .complete-question span {
     color: white;
     font-size: 27px;
     font-weight: bold;
 }
 
-
 /* DISPLAY SCORE */
-
 .display-score {
     width: 60%;
     margin: auto;
@@ -520,26 +466,21 @@ h3 {
     margin-top: 20px;
     border-radius: 7px;
 }
-
-.text-score,
-.your-scores {
+.text-score, .your-scores {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 24px;
     color: #fff;
 }
-
 .text-score {
     margin-left: 20px;
 }
-
 .your-scores {
     margin-right: 20px;
 }
 
 
 /* DISPLAY GOOD/BAD ANSWER */
-
 .correction {
     width: 60%;
     margin: auto;
@@ -553,39 +494,33 @@ h3 {
     border-top: 8px solid #1d2570;
     border-radius: 7px 7px 7px 7px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-}
 
+}
 .c-quest {
     display: flex;
     justify-content: space-between;
 }
-
 .contain-answer {
     width: 100%;
     margin-top: 10px;
 }
-
 .contain-answer .correction-answer {
     list-style: none;
     padding: 8px 20px;
+    
 }
-
 .text-answer {
     margin-left: 20px;
 }
 
-
 /* button home and play again */
-
 .options {
     width: 100%;
     margin: auto;
     text-align: right;
     margin-top: 20px;
 }
-
-.btn-home,
-.btn-play-again {
+.btn-home, .btn-play-again {
     margin: auto;
     padding: 13px 45px 13px 45px;
     border: none;
