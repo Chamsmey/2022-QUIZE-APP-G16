@@ -195,7 +195,7 @@ h2 {
     background: rgb(255, 255, 255);
     padding: 20px;
     box-sizing: border-box;
-    border-left: 8px solid #DA22FF;
+    border-top: 8px solid #DA22FF;
     border-radius: 10px;
     color: #1d2570;
     font-size: 15px;
@@ -265,19 +265,24 @@ ul {
     width: 100%;
 }
 
-.contain-quest ul li {
-    border-radius: 5px solid;
+.detail-card {
+    background: white;
+    color: black;
+    box-shadow: 3px 3px 7px rgba(14, 30, 37, 0.32);
+    border-radius: 5px;
+}
+
+.contain-quest ul .about-question {
     padding: 10px 20px;
     margin-top: 10px;
-    cursor: pointer;
     display: flex;
     font-size: 15px;
     justify-content:space-between;
     align-items: center;
     background: white;
-    color: black;
-    box-shadow: 3px 3px 7px rgba(14, 30, 37, 0.32);
-    border-radius: 4px;
+    border-radius: 5px 5px 0 0;
+    color: white;
+    background-color: #1d2570;
 }
 
 .btns {
@@ -290,6 +295,21 @@ ul {
     width: 60%;
     margin: auto;
     margin-bottom: 20px;
+    list-style-type: none;
+}
+
+.answer-detail {
+    width: 100%;
+    padding: 7px 0 15px 0;
+    font-size: 15px;
+}
+.li-answer {
+    margin: auto;
+    padding: 5px 7px 5px 7px;
+    width: 90%;
+}
+.li-answer span {
+    margin-left: 10px;
 }
 
 .contant-qus {
@@ -304,13 +324,14 @@ ul {
     width: 10%;
     display: flex;
     justify-content: space-evenly;
+    cursor: pointer;
     font-size: 18px
 }
 .delete:hover {
-    color: #9733EE;
+    color: #DA22FF;
 }
 .edit:hover {
-    color: #9733EE;
+    color: #DA22FF;
 }
 
 h3 {
@@ -337,13 +358,6 @@ h3 {
     align-items: center;
     background-color: #9733EE;
     box-shadow: 0px 2px 5px rgba(14, 30, 37, 0.32);
-}
-.dis-quiz-title .contain-home {
-    width: 5%;
-    margin-left: 20px;
-}
-.empty-ele {
-    width: 5%;
 }
 .dis-quiz-title span {
     color: white;
