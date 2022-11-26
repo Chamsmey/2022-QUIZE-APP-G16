@@ -650,11 +650,7 @@ function countScore() {
 //--Remove a question--
 function removeQuestion(event) {
     // get target and button id
-<<<<<<< HEAD
     let datas = JSON.parse(localStorage.getItem('datas'));       
-=======
-    datas = JSON.parse(localStorage.getItem('datas'));
->>>>>>> f0334502f54721dd6ad03ef33651bd7bac5e459f
     let getTarget = event.target;
     let btnId = getTarget.id;
     datas.splice(btnId, 1);
